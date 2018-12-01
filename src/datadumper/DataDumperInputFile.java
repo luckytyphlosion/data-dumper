@@ -17,9 +17,9 @@ public class DataDumperInputFile implements DataInput {
 		}
     }
 
-    public void seek(Address address) {
+    public void seek(long loadAddress) {
     	try {
-            this.inputFile.seek(address.getFileOffset());    		
+            this.inputFile.seek(loadAddress);    		
     	} catch (IOException e) {
     		throw new RuntimeException(e);
     	}

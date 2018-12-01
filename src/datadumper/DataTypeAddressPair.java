@@ -2,9 +2,9 @@ package datadumper;
 
 public class DataTypeAddressPair {
 	public final DataType dataType;
-	public final Address address;
+	public final long address;
 
-	public DataTypeAddressPair(DataType dataType, Address address) {
+	public DataTypeAddressPair(DataType dataType, long address) {
 		this.dataType = dataType;
 		this.address = address;
 	}

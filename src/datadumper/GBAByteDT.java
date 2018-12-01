@@ -1,6 +1,6 @@
 package datadumper;
 
-public class GBAByteDT extends DataType {
+public class GBAByteDT extends GBADataType {
 
 	protected int value;
 

@@ -1,8 +1,8 @@
 package datadumper;
 
-public abstract class PointerDT extends DataType {
+public abstract class PointerDT extends GenericDataType {
 
-	protected Address pointerAddress;
+	protected long pointerAddress;
 
 	public PointerDT(DataDumper dumper, FormatType format) {
 		super(dumper, format);
@@ -18,5 +18,5 @@ public abstract class PointerDT extends DataType {
 		this.dumper.addDataTypeToParse(this.related, this.pointerAddress, this.getDatatypeAsStr());
 	}
 
-	public abstract Address readPointer();
+	public abstract long readPointer();
 }

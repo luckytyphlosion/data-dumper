@@ -13,14 +13,13 @@ public class GBAPointerDT extends PointerDT {
 	}
 
 	@Override
-	public Address readPointer() {
-		long tempAddress = DataDumper.swapInteger(this.inputFile.readInt()) & 0xFFFFFFFF;
-		return new GBAAddress(tempAddress);
+	public long readPointer() {
+		return (DataDumper.swapInteger(this.inputFile.readInt()) - GBAPointerDT.GBA_VMA_OFFSET) & 0xFFFFFFFF;
 	}
 
 	@Override
 	public String getDatatypeAsStr() {
-		return String.format("unk_%08x", this.pointerAddress.getAddress());
+		return String.format("unk_%08x", this.pointerAddress);
 	}
 
 	@Override

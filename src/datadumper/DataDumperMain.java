@@ -16,6 +16,7 @@ import datadumper.gb.pokered.LevelMoveTemplateDT;
 import datadumper.gb.pokered.PokemonEnumDT;
 //import datadumper.gba.GBAPointerDT;
 //import datadumper.gba.GBAPrimitive;
+import datadumper.tests.CrystalTrainerPartiesTest;
 
 public class DataDumperMain {
 
@@ -49,31 +50,7 @@ public class DataDumperMain {
 			);*/
 
     public static void main(String[] args) {
-        String inputFileName = "blue_tests.gb";
-        DataDumper dumper = new DataDumper(inputFileName, "r", SystemTypes.gb);
-        DataType dataType = new EnumTerminatedListDT(
-                dumper, FormatType.NONE, PokemonEnumDT.class, new GBPointerDT(
-                        dumper, FormatType.BLOCK,
-                        new AnonymousTemplateDT(dumper, FormatType.NONE, new DataType[] {
-                                new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.DECIMAL, 0, FormatType.BLOCK, 
-                                        new EvosEntryDT(dumper, FormatType.NONE)),
-                                new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.DECIMAL, 0, FormatType.BLOCK,
-                                        new LevelMoveTemplateDT(dumper, FormatType.NONE))}
-                                )
-                        )
-                );
-        String output = "";
-        dumper.addDataTypeToParse(dataType, 0x3B05CL, "EvosMovesPointerTable");
-        dumper.parse();
-        output = dumper.generateOutput();
-        File outputFile = new File("output/output.txt");
-        outputFile.getParentFile().mkdirs();
-        try (FileWriter writer = new FileWriter(outputFile)) {
-            writer.write(output);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("Done!");
+        CrystalTrainerPartiesTest.test();
         //System.out.println(output);
     }
 }

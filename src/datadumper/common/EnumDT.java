@@ -18,17 +18,17 @@ public abstract class EnumDT extends PrimitiveDT {
     public void parseData() {
         super.parseData();
         if (this.value >= this.getEnumNameArray().length) {
-            throw new RuntimeException(String.format("EnumDT value %s at %x is greater than enum name array length %s!", this.value, this.getVirtualAddress(), this.getEnumNameArray().length));
+            throw new RuntimeException(String.format("%s value %s at %x is greater than enum name array length %s!", this.getClass().getName(), this.value, this.getVirtualAddress(), this.getEnumNameArray().length));
         }
     }
 
     @Override
     public String getDatatypeAsStr() {
         //System.out.println(String.format("%x", this.getLoadAddress()));
-        return this.getEnumNameArray()[Math.toIntExact(this.value)];
+        return this.getEnumNameArray()[Math.toIntExact(this.value)].toString();
     }
 
-    public abstract String[] getEnumNameArray();
+    public abstract Enum<?>[] getEnumNameArray();
 
     public abstract int getStartingValue();
 

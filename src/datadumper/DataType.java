@@ -12,7 +12,6 @@ public abstract class DataType {
     protected FormatType format;
     protected DataType related;
     protected SystemType systemType;
-    protected int size;
 
     public static final NullDataType nullDataType = new NullDataType(null, null);
 
@@ -29,12 +28,12 @@ public abstract class DataType {
             this.inputFile = this.dumper.getInputFile();
             this.systemType = this.dumper.getSystemType();
         }
-        this.size = -1;
     }
 
     public void parse() {
         this.setAddressFromInputFilePos();
         try {
+            //System.out.println(String.format("Parsing %s at %x\n", this.getClass().getName(), this.getLoadAddress()));
             this.dumper.getLogFile().write(String.format("Parsing %s at %x\n", this.getClass().getName(), this.getLoadAddress()));
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -71,6 +70,23 @@ public abstract class DataType {
             } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e1_2) {
                 throw new RuntimeException(e1_2);
             }
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e2) {
+            throw new RuntimeException(e2);
+        }
+    }
+
+    public static DataType createCopyWithArgs(DataType dataType, Class<?>[] classArgs, Object[] constructorArgs) {
+        try {
+            return dataType.getClass().getConstructor(classArgs).newInstance(constructorArgs);
+        } catch (NoSuchMethodException e1) {
+            String classArgNames = "";
+            for (Class<?> classArg : classArgs) {
+                classArgNames += classArg.getName() + ", ";
+            }
+            classArgNames = classArgNames.substring(0, classArgNames.length() - 2);
+            throw new RuntimeException(
+                String.format("Constructor (%s) of DataType %s does not exist!", classArgNames, dataType.getClass().getName())
+            , e1);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e2) {
             throw new RuntimeException(e2);
         }
@@ -124,20 +140,8 @@ public abstract class DataType {
         return this.getSystemType().addressToFileOffset(address);
     }
 
-    // Override this method maybe
-    public int getSize() {
-        if (this.size == -1) {
-            throw new UnsupportedOperationException(String.format("%s does not have a known size!", this.getClass().getName()));
-        }
-        return this.size;
-    }
-
     public SystemType getSystemType() {
         return this.systemType;
-    }
-
-    public long readFromSize() {
-        return this.readFromSizeArg(this.getSize());
     }
 
     public long readFromSizeArg(int size) {
@@ -169,5 +173,9 @@ public abstract class DataType {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+    
+    public void setFormat(FormatType format) {
+        this.format = format;
     }
 }

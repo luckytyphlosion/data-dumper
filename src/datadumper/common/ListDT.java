@@ -18,8 +18,13 @@ public abstract class ListDT extends GenericDataType {
 
     @Override
     public void parseData() {
+        boolean firstRunthrough = true;
         while (loopCondition()) {
             DataType dataType = this.related.createCopy();
+            if (firstRunthrough) {
+                //dataType.setFormat(this.format);
+                firstRunthrough = false;
+            }
             dataTypeList.add(dataType);
             dataType.parse();
         }

@@ -1,10 +1,8 @@
-package datadumper.gb.pokered;
+package datadumper.gb.pokecrystal;
 
 import datadumper.DataDumper;
 import datadumper.DataType;
 import datadumper.FormatType;
-import datadumper.SystemType;
-import datadumper.SystemTypes;
 import datadumper.common.EnumDT;
 import datadumper.gb.GBPrimitive;
 
@@ -175,17 +173,103 @@ public class MoveEnumDT extends EnumDT {
         TRI_ATTACK,
         SUPER_FANG,
         SLASH,
-        SUBSTITUTE
-    };
-
-    protected SystemType systemType = SystemTypes.gb;
-
+        SUBSTITUTE,
+        STRUGGLE,
+        SKETCH,
+        TRIPLE_KICK,
+        THIEF,
+        SPIDER_WEB,
+        MIND_READER,
+        NIGHTMARE,
+        FLAME_WHEEL,
+        SNORE,
+        CURSE,
+        FLAIL,
+        CONVERSION2,
+        AEROBLAST,
+        COTTON_SPORE,
+        REVERSAL,
+        SPITE,
+        POWDER_SNOW,
+        PROTECT,
+        MACH_PUNCH,
+        SCARY_FACE,
+        FAINT_ATTACK,
+        SWEET_KISS,
+        BELLY_DRUM,
+        SLUDGE_BOMB,
+        MUD_SLAP,
+        OCTAZOOKA,
+        SPIKES,
+        ZAP_CANNON,
+        FORESIGHT,
+        DESTINY_BOND,
+        PERISH_SONG,
+        ICY_WIND,
+        DETECT,
+        BONE_RUSH,
+        LOCK_ON,
+        OUTRAGE,
+        SANDSTORM,
+        GIGA_DRAIN,
+        ENDURE,
+        CHARM,
+        ROLLOUT,
+        FALSE_SWIPE,
+        SWAGGER,
+        MILK_DRINK,
+        SPARK,
+        FURY_CUTTER,
+        STEEL_WING,
+        MEAN_LOOK,
+        ATTRACT,
+        SLEEP_TALK,
+        HEAL_BELL,
+        RETURN,
+        PRESENT,
+        FRUSTRATION,
+        SAFEGUARD,
+        PAIN_SPLIT,
+        SACRED_FIRE,
+        MAGNITUDE,
+        DYNAMICPUNCH,
+        MEGAHORN,
+        DRAGONBREATH,
+        BATON_PASS,
+        ENCORE,
+        PURSUIT,
+        RAPID_SPIN,
+        SWEET_SCENT,
+        IRON_TAIL,
+        METAL_CLAW,
+        VITAL_THROW,
+        MORNING_SUN,
+        SYNTHESIS,
+        MOONLIGHT,
+        HIDDEN_POWER,
+        CROSS_CHOP,
+        TWISTER,
+        RAIN_DANCE,
+        SUNNY_DAY,
+        CRUNCH,
+        MIRROR_COAT,
+        PSYCH_UP,
+        EXTREMESPEED,
+        ANCIENTPOWER,
+        SHADOW_BALL,
+        FUTURE_SIGHT,
+        ROCK_SMASH,
+        WHIRLPOOL,
+        BEAT_UP,
+    }
     public MoveEnumDT(DataDumper dumper, FormatType format) {
         super(dumper, format);
+        // TODO Auto-generated constructor stub
     }
 
     public MoveEnumDT(DataDumper dumper, FormatType format, DataType related) {
         super(dumper, format, related);
+        // TODO Auto-generated constructor stub
     }
 
     @Override
@@ -195,9 +279,9 @@ public class MoveEnumDT extends EnumDT {
 
     @Override
     public int getStartingValue() {
-        return 1;
+        return 0;
     }
-    
+
     @Override
     public int getSize() {
         return GBPrimitive.BYTE;

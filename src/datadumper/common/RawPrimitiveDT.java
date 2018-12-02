@@ -9,6 +9,7 @@ public class RawPrimitiveDT extends PrimitiveDT {
 
     protected RadixType radix;
     protected boolean padding;
+    protected int size;
 
     public RawPrimitiveDT(DataDumper dumper, FormatType format, int size, RadixType radix) {
         this(dumper, format, size, false, radix);
@@ -30,7 +31,7 @@ public class RawPrimitiveDT extends PrimitiveDT {
         switch (this.radix) {
         case DECIMAL:
             return Long.toString(this.value);
-        case HEXIDECIMAL:
+        case HEXADECIMAL:
             if (this.padding) {
                 return String.format("%s%0" + this.getSize() * 2 + "x", this.getSystemType().getHexPrefix(), this.value);
             } else {
@@ -45,5 +46,10 @@ public class RawPrimitiveDT extends PrimitiveDT {
         default:
             throw new RuntimeException("Tried to convert RawPrimitiveDT of unknown radix " + this.radix + "!");
         }
+    }
+
+    @Override
+    public int getSize() {
+        return this.size;
     }
 }

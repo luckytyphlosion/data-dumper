@@ -71,8 +71,11 @@ public class DataDumper {
         // ListIterator inserts the element in-between the current and next element, which is not wanted.
         for (int i = 0; i < dataTypesToParse.size(); i++) {
             DataTypeAddressPair dataTypeAddressPair = dataTypesToParse.get(i);
-            this.inputFile.seek(dataTypeAddressPair.address);
-            dataTypeAddressPair.dataType.parse();
+            // temp hack to stop parsing, TODO fixme
+            if (!(dataTypeAddressPair.dataType instanceof DummyDataType)) {
+                this.inputFile.seek(dataTypeAddressPair.address);
+                dataTypeAddressPair.dataType.parse();
+            }
             // TODO figure out cases of data indirection overlap e.g. in scripts
             // look ahead and don't parse on already parsed addresses?
             // dataType.setAddressFromInputFilePos();
@@ -93,7 +96,9 @@ public class DataDumper {
             } catch (IOException e2) {
                 throw new RuntimeException(e2);
             }
-            output += dataTypeAddressPair.dataType.toString();
+            if (!(dataTypeAddressPair.dataType instanceof DummyDataType)) {
+                output += dataTypeAddressPair.dataType.toString();                
+            }
         }
         try {
             this.logFile.close();

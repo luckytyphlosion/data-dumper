@@ -27,45 +27,64 @@ public class TrainerPartyDT extends TemplateDT {
     @Override
     public DataType[] getDataTypeTemplate() {
         return new DataType[] {
-                new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0x50, FormatType.INLINE, new RawPrimitiveDT(dumper, FormatType.BLOCK, GBPrimitive.BYTE, RadixType.HEXADECIMAL)), // todo make String class
-                new AnonymousImmediateCommandDT(dumper, FormatType.NONE, new TrainerTypeEnumDT(dumper, FormatType.INLINE), 
-                    new DataType[] {
-                        new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0xff, FormatType.BLOCK, 
-                            new AnonymousTemplateDT(dumper, FormatType.NONE,
-                                new DataType[] {
-                                    new DecByteDT(dumper, FormatType.BLOCK),
-                                    new PokemonEnumDT(dumper, FormatType.INLINE)
-                                })),
-                        new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0xff, FormatType.BLOCK, 
-                            new AnonymousTemplateDT(dumper, FormatType.NONE,
-                                new DataType[] {
-                                    new DecByteDT(dumper, FormatType.BLOCK),
-                                    new PokemonEnumDT(dumper, FormatType.INLINE),
-                                    new MoveEnumDT(dumper, FormatType.INLINE),
-                                    new MoveEnumDT(dumper, FormatType.INLINE),
-                                    new MoveEnumDT(dumper, FormatType.INLINE),
-                                    new MoveEnumDT(dumper, FormatType.INLINE)
-                                })),
-                        new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0xff, FormatType.BLOCK, 
-                            new AnonymousTemplateDT(dumper, FormatType.NONE,
-                                new DataType[] {
-                                    new DecByteDT(dumper, FormatType.BLOCK),
-                                    new PokemonEnumDT(dumper, FormatType.INLINE),
-                                    new ItemEnumDT(dumper, FormatType.INLINE)
-                                })),
-                        new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0xff, FormatType.BLOCK, 
-                            new AnonymousTemplateDT(dumper, FormatType.NONE,
-                                new DataType[] {
-                                    new DecByteDT(dumper, FormatType.BLOCK),
-                                    new PokemonEnumDT(dumper, FormatType.INLINE),
-                                    new ItemEnumDT(dumper, FormatType.INLINE),
-                                    new MoveEnumDT(dumper, FormatType.INLINE),
-                                    new MoveEnumDT(dumper, FormatType.INLINE),
-                                    new MoveEnumDT(dumper, FormatType.INLINE),
-                                    new MoveEnumDT(dumper, FormatType.INLINE)
-                                }))
-                    })};
-
+            new SentinelTerminatedListDT(
+                dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0x50, FormatType.INLINE,
+                new RawPrimitiveDT(
+                    dumper, FormatType.BLOCK, GBPrimitive.BYTE, RadixType.HEXADECIMAL
+                )
+            ), // TODO make String class
+         
+            new AnonymousImmediateCommandDT(
+                dumper, FormatType.NONE,
+                new TrainerTypeEnumDT(dumper, FormatType.INLINE), 
+                new DataType[] {
+                    new SentinelTerminatedListDT(
+                        dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0xff, FormatType.BLOCK, 
+                        new AnonymousTemplateDT(dumper, FormatType.NONE,
+                            new DataType[] {
+                                new DecByteDT(dumper, FormatType.BLOCK),
+                                new PokemonEnumDT(dumper, FormatType.INLINE)
+                            }
+                        )
+                    ),
+                    new SentinelTerminatedListDT(
+                        dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0xff, FormatType.BLOCK, 
+                        new AnonymousTemplateDT(dumper, FormatType.NONE,
+                            new DataType[] {
+                                new DecByteDT(dumper, FormatType.BLOCK),
+                                new PokemonEnumDT(dumper, FormatType.INLINE),
+                                new MoveEnumDT(dumper, FormatType.INLINE),
+                                new MoveEnumDT(dumper, FormatType.INLINE),
+                                new MoveEnumDT(dumper, FormatType.INLINE),
+                                new MoveEnumDT(dumper, FormatType.INLINE)
+                            }
+                        )
+                    ),
+                    new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0xff, FormatType.BLOCK, 
+                        new AnonymousTemplateDT(dumper, FormatType.NONE,
+                            new DataType[] {
+                                new DecByteDT(dumper, FormatType.BLOCK),
+                                new PokemonEnumDT(dumper, FormatType.INLINE),
+                                new ItemEnumDT(dumper, FormatType.INLINE)
+                            }
+                        )
+                    ),
+                    new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0xff, FormatType.BLOCK, 
+                        new AnonymousTemplateDT(dumper, FormatType.NONE,
+                            new DataType[] {
+                                new DecByteDT(dumper, FormatType.BLOCK),
+                                new PokemonEnumDT(dumper, FormatType.INLINE),
+                                new ItemEnumDT(dumper, FormatType.INLINE),
+                                new MoveEnumDT(dumper, FormatType.INLINE),
+                                new MoveEnumDT(dumper, FormatType.INLINE),
+                                new MoveEnumDT(dumper, FormatType.INLINE),
+                                new MoveEnumDT(dumper, FormatType.INLINE)
+                            }
+                        )
+                    )
+                }
+            )
+        };
     }
 
 }

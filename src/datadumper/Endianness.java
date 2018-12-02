@@ -1,5 +1,5 @@
 package datadumper;
 
 public enum Endianness {
-	BIG, LITTLE
+    BIG, LITTLE
 }

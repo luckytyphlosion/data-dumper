@@ -6,30 +6,30 @@ import datadumper.FormatType;
 
 public abstract class PrimitiveDT extends DataType {
 
-	protected long value;
+    protected long value;
 
-	public PrimitiveDT(DataDumper dumper, FormatType format) {
-		super(dumper, format);
-	}
+    public PrimitiveDT(DataDumper dumper, FormatType format) {
+        super(dumper, format);
+    }
 
-	public PrimitiveDT(DataDumper dumper, FormatType format, DataType related) {
-		super(dumper, format, related);
-	}
+    public PrimitiveDT(DataDumper dumper, FormatType format, DataType related) {
+        super(dumper, format, related);
+    }
 
-	@Override
-	public void parseData() {
-		this.value = this.readFromSize();
-	}
+    @Override
+    public void parseData() {
+        this.value = this.readFromSize();
+    }
 
-	public abstract String getDatatypeAsStr();
+    public abstract String getDatatypeAsStr();
 
-	public long getValue() {
-		return this.value;
-	}
+    public long getValue() {
+        return this.value;
+    }
 
-	@Override
-	public String getBlockFormatPrefix() {
-		return this.getSystemType().getPrefixFromSize(this.getSize());
-	}
+    @Override
+    public String getBlockFormatPrefix() {
+        return this.getSystemType().getPrefixFromSize(this.getSize());
+    }
 
 }

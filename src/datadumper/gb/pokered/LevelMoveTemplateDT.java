@@ -12,22 +12,22 @@ import datadumper.gb.GBPrimitive;
 
 public class LevelMoveTemplateDT extends TemplateDT {
 
-	protected SystemType systemType = SystemTypes.gb;
+    protected SystemType systemType = SystemTypes.gb;
 
-	public LevelMoveTemplateDT(DataDumper dumper, FormatType format) {
-		super(dumper, format);
-	}
+    public LevelMoveTemplateDT(DataDumper dumper, FormatType format) {
+        super(dumper, format);
+    }
 
-	public LevelMoveTemplateDT(DataDumper dumper, FormatType format, DataType related) {
-		super(dumper, format, related);
-	}
+    public LevelMoveTemplateDT(DataDumper dumper, FormatType format, DataType related) {
+        super(dumper, format, related);
+    }
 
-	@Override
-	public DataType[] getDataTypeTemplate() {
-		return new DataType[] {
-			new RawPrimitiveDT(this.dumper, FormatType.BLOCK, GBPrimitive.BYTE, RadixType.DECIMAL),
-			new MoveEnumDT(this.dumper, FormatType.INLINE)
-		};
-	}
+    @Override
+    public DataType[] getDataTypeTemplate() {
+        return new DataType[] {
+                new RawPrimitiveDT(this.dumper, FormatType.BLOCK, GBPrimitive.BYTE, RadixType.DECIMAL),
+                new MoveEnumDT(this.dumper, FormatType.INLINE)
+        };
+    }
 
 }

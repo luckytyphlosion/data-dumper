@@ -19,22 +19,22 @@ import datadumper.gb.pokered.PokemonEnumDT;
 
 public class DataDumperMain {
 
-	/*public class DataDumperArgs {
+    /*public class DataDumperArgs {
 		public final String inputFileName;
 		public final SystemType systemType;
 		public final DataTypeAddressLabel[] inputDataTypes;
-		
+
 		public DataDumperArgs(String inputFileName, SystemType systemType, DataTypeAddressLabel[] inputDataTypes) {
 			this.inputFileName = inputFileName;
 			this.systemType = systemType;
 			this.inputDataTypes = inputDataTypes;
 		}
-		
+
 		public class DataTypeAddressLabel {
 			public final DataType dataType;
 			public final long address;
 			public final String label;
-			
+
 			public DataTypeAddressLabel(DataType dataType, long address, String label) {
 				this.dataType = dataType;
 				this.address = address;
@@ -47,21 +47,21 @@ public class DataDumperMain {
 			new DataTypeAddressLabel(new EnumTerminatedList())
 	}
 			);*/
-			
-	public static void main(String[] args) {
+
+    public static void main(String[] args) {
         String inputFileName = "blue_tests.gb";
         DataDumper dumper = new DataDumper(inputFileName, "r", SystemTypes.gb);
         DataType dataType = new EnumTerminatedListDT(
-        		dumper, FormatType.NONE, PokemonEnumDT.class, new GBPointerDT(
-        				dumper, FormatType.BLOCK,
-        					new AnonymousTemplateDT(dumper, FormatType.NONE, new DataType[] {
-        						new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.DECIMAL, 0, FormatType.BLOCK, 
-        								new EvosEntryDT(dumper, FormatType.NONE)),
-        						new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.DECIMAL, 0, FormatType.BLOCK,
-        								new LevelMoveTemplateDT(dumper, FormatType.NONE))}
-        					)
-    					)
-        		);
+                dumper, FormatType.NONE, PokemonEnumDT.class, new GBPointerDT(
+                        dumper, FormatType.BLOCK,
+                        new AnonymousTemplateDT(dumper, FormatType.NONE, new DataType[] {
+                                new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.DECIMAL, 0, FormatType.BLOCK, 
+                                        new EvosEntryDT(dumper, FormatType.NONE)),
+                                new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.DECIMAL, 0, FormatType.BLOCK,
+                                        new LevelMoveTemplateDT(dumper, FormatType.NONE))}
+                                )
+                        )
+                );
         String output = "";
         dumper.addDataTypeToParse(dataType, 0x3B05CL, "EvosMovesPointerTable");
         dumper.parse();
@@ -69,11 +69,11 @@ public class DataDumperMain {
         File outputFile = new File("output/output.txt");
         outputFile.getParentFile().mkdirs();
         try (FileWriter writer = new FileWriter(outputFile)) {
-        	writer.write(output);
+            writer.write(output);
         } catch (IOException e) {
-        	throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
         System.out.println("Done!");
         //System.out.println(output);
-	}
+    }
 }

@@ -1,4 +1,9 @@
-package datadumper;
+package datadumper.gba;
+
+import datadumper.DataDumper;
+import datadumper.DataType;
+import datadumper.FormatType;
+import datadumper.common.PointerDT;
 
 public class GBAPointerDT extends PointerDT {
 	

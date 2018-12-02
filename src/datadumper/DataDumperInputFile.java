@@ -1,6 +1,7 @@
 package datadumper;
 
 import java.io.DataInput;
+import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -161,11 +162,17 @@ public class DataDumperInputFile implements DataInput {
 	}
 
 	public int read() {
+		int value;
+
 		try {
-			return this.inputFile.read();
+			value = this.inputFile.read();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+		if (value == -1) {
+			throw new RuntimeException(new EOFException("Reached end of file in DataDumperInputFile.read()!"));
+		}
+		return value;
 	}
 
     public long getFilePointer() {

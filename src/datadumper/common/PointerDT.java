@@ -1,6 +1,10 @@
-package datadumper;
+package datadumper.common;
 
-public abstract class PointerDT extends GenericDataType {
+import datadumper.DataDumper;
+import datadumper.DataType;
+import datadumper.FormatType;
+
+public abstract class PointerDT extends DataType {
 
 	protected long pointerAddress;
 

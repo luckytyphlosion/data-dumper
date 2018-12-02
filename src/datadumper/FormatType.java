@@ -1,5 +1,5 @@
 package datadumper;
 
 public enum FormatType {
-	BLOCK, INLINE;
+	BLOCK, INLINE, NONE;
 }

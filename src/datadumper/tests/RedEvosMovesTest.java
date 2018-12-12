@@ -10,10 +10,8 @@ import datadumper.FormatType;
 import datadumper.SystemTypes;
 import datadumper.common.AnonymousTemplateDT;
 import datadumper.common.EnumTerminatedListDT;
-import datadumper.common.RadixType;
 import datadumper.common.SentinelTerminatedListDT;
 import datadumper.gb.GBPointerDT;
-import datadumper.gb.GBPrimitive;
 import datadumper.gb.pokered.EvosEntryDT;
 import datadumper.gb.pokered.LevelMoveTemplateDT;
 import datadumper.gb.pokered.PokemonEnumDT;
@@ -25,9 +23,9 @@ public class RedEvosMovesTest {
         DataType dataType = new EnumTerminatedListDT(dumper, FormatType.NONE, PokemonEnumDT.class,
             new GBPointerDT(dumper, FormatType.BLOCK,
                 new AnonymousTemplateDT(dumper, FormatType.NONE, new DataType[] {
-                    new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.DECIMAL, 0, FormatType.BLOCK, 
+                    new SentinelTerminatedListDT(dumper, FormatType.NONE, "1%d", 0, FormatType.BLOCK, 
                         new EvosEntryDT(dumper, FormatType.NONE)),
-                    new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.DECIMAL, 0, FormatType.BLOCK,
+                    new SentinelTerminatedListDT(dumper, FormatType.NONE, "1%d", 0, FormatType.BLOCK,
                         new LevelMoveTemplateDT(dumper, FormatType.NONE))}
                 )
             )

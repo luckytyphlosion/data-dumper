@@ -1,22 +1,6 @@
 package datadumper;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import datadumper.common.AnonymousTemplateDT;
-import datadumper.common.EnumTerminatedListDT;
-import datadumper.common.RadixType;
-//import datadumper.common.RawPrimitiveDT;
-import datadumper.common.SentinelTerminatedListDT;
-import datadumper.gb.GBPointerDT;
-import datadumper.gb.GBPrimitive;
-import datadumper.gb.pokered.EvosEntryDT;
-import datadumper.gb.pokered.LevelMoveTemplateDT;
-import datadumper.gb.pokered.PokemonEnumDT;
-//import datadumper.gba.GBAPointerDT;
-//import datadumper.gba.GBAPrimitive;
-import datadumper.tests.CrystalTrainerPartiesTest;
+import datadumper.tests.*;
 
 public class DataDumperMain {
 
@@ -50,7 +34,7 @@ public class DataDumperMain {
 			);*/
 
     public static void main(String[] args) {
-        CrystalTrainerPartiesTest.test();
+        RedEvosMovesTest.test();
         //System.out.println(output);
     }
 }

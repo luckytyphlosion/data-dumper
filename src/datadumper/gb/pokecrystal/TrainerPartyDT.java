@@ -6,11 +6,9 @@ import datadumper.FormatType;
 import datadumper.common.AnonymousImmediateCommandDT;
 import datadumper.common.AnonymousTemplateDT;
 import datadumper.common.DecByteDT;
-import datadumper.common.RadixType;
 import datadumper.common.RawPrimitiveDT;
 //import datadumper.common.StringDT;
 import datadumper.common.TemplateDT;
-import datadumper.gb.GBPrimitive;
 import datadumper.common.SentinelTerminatedListDT;
 //import datadumper
 
@@ -28,9 +26,9 @@ public class TrainerPartyDT extends TemplateDT {
     public DataType[] getDataTypeTemplate() {
         return new DataType[] {
             new SentinelTerminatedListDT(
-                dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0x50, FormatType.INLINE,
+                dumper, FormatType.NONE, "1%02x", 0x50, FormatType.INLINE,
                 new RawPrimitiveDT(
-                    dumper, FormatType.BLOCK, GBPrimitive.BYTE, RadixType.HEXADECIMAL
+                    dumper, FormatType.BLOCK, "1%02x"
                 )
             ), // TODO make String class
          
@@ -39,7 +37,7 @@ public class TrainerPartyDT extends TemplateDT {
                 new TrainerTypeEnumDT(dumper, FormatType.INLINE), 
                 new DataType[] {
                     new SentinelTerminatedListDT(
-                        dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0xff, FormatType.BLOCK, 
+                        dumper, FormatType.NONE, "1%02x", 0xff, FormatType.BLOCK, 
                         new AnonymousTemplateDT(dumper, FormatType.NONE,
                             new DataType[] {
                                 new DecByteDT(dumper, FormatType.BLOCK),
@@ -48,7 +46,7 @@ public class TrainerPartyDT extends TemplateDT {
                         )
                     ),
                     new SentinelTerminatedListDT(
-                        dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0xff, FormatType.BLOCK, 
+                        dumper, FormatType.NONE, "1%02x", 0xff, FormatType.BLOCK, 
                         new AnonymousTemplateDT(dumper, FormatType.NONE,
                             new DataType[] {
                                 new DecByteDT(dumper, FormatType.BLOCK),
@@ -60,7 +58,7 @@ public class TrainerPartyDT extends TemplateDT {
                             }
                         )
                     ),
-                    new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0xff, FormatType.BLOCK, 
+                    new SentinelTerminatedListDT(dumper, FormatType.NONE, "1%02x", 0xff, FormatType.BLOCK, 
                         new AnonymousTemplateDT(dumper, FormatType.NONE,
                             new DataType[] {
                                 new DecByteDT(dumper, FormatType.BLOCK),
@@ -69,7 +67,7 @@ public class TrainerPartyDT extends TemplateDT {
                             }
                         )
                     ),
-                    new SentinelTerminatedListDT(dumper, FormatType.NONE, GBPrimitive.BYTE, RadixType.HEXADECIMAL, 0xff, FormatType.BLOCK, 
+                    new SentinelTerminatedListDT(dumper, FormatType.NONE, "1%02x", 0xff, FormatType.BLOCK, 
                         new AnonymousTemplateDT(dumper, FormatType.NONE,
                             new DataType[] {
                                 new DecByteDT(dumper, FormatType.BLOCK),

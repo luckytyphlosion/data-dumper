@@ -6,9 +6,7 @@ import datadumper.FormatType;
 import datadumper.SystemType;
 import datadumper.SystemTypes;
 import datadumper.common.AnonymousTemplateDT;
-import datadumper.common.RadixType;
-import datadumper.common.RawPrimitiveDT;
-import datadumper.gb.GBPrimitive;
+import datadumper.common.DecByteDT;
 
 public class EvosEntryDT extends DataType {
 
@@ -17,13 +15,13 @@ public class EvosEntryDT extends DataType {
     protected SystemType systemType = SystemTypes.gb;
 
     protected DataType[] evLevelTradeTemplate = new DataType[] {
-            new RawPrimitiveDT(this.dumper, FormatType.INLINE, GBPrimitive.BYTE, RadixType.DECIMAL),
+            new DecByteDT(this.dumper, FormatType.INLINE),
             new PokemonEnumDT(this.dumper, FormatType.INLINE)
     };
 
     protected DataType[] evItemTemplate = new DataType[] {
             new ItemEnumDT(this.dumper, FormatType.INLINE),
-            new RawPrimitiveDT(this.dumper, FormatType.INLINE, GBPrimitive.BYTE, RadixType.DECIMAL),
+            new DecByteDT(this.dumper, FormatType.INLINE),
             new PokemonEnumDT(this.dumper, FormatType.INLINE)			
     };
 

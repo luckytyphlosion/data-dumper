@@ -5,10 +5,8 @@ import datadumper.DataType;
 import datadumper.FormatType;
 import datadumper.SystemType;
 import datadumper.SystemTypes;
-import datadumper.common.RadixType;
-import datadumper.common.RawPrimitiveDT;
+import datadumper.common.DecByteDT;
 import datadumper.common.TemplateDT;
-import datadumper.gb.GBPrimitive;
 
 public class LevelMoveTemplateDT extends TemplateDT {
 
@@ -25,8 +23,8 @@ public class LevelMoveTemplateDT extends TemplateDT {
     @Override
     public DataType[] getDataTypeTemplate() {
         return new DataType[] {
-                new RawPrimitiveDT(this.dumper, FormatType.BLOCK, GBPrimitive.BYTE, RadixType.DECIMAL),
-                new MoveEnumDT(this.dumper, FormatType.INLINE)
+            new DecByteDT(this.dumper, FormatType.BLOCK),
+            new MoveEnumDT(this.dumper, FormatType.INLINE)
         };
     }
 

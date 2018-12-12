@@ -27,7 +27,6 @@ public class DataDumper {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //this.outputtedLabels = new HashSet<String>();
     }
 
     public void addDataTypeToParse(DataType dataType, long address, String label) {
@@ -72,10 +71,8 @@ public class DataDumper {
         for (int i = 0; i < dataTypesToParse.size(); i++) {
             DataTypeAddressPair dataTypeAddressPair = dataTypesToParse.get(i);
             // temp hack to stop parsing, TODO fixme
-            if (!(dataTypeAddressPair.dataType instanceof DummyDataType)) {
-                this.inputFile.seek(dataTypeAddressPair.address);
-                dataTypeAddressPair.dataType.parse();
-            }
+            this.inputFile.seek(dataTypeAddressPair.address);
+            dataTypeAddressPair.dataType.parse();
             // TODO figure out cases of data indirection overlap e.g. in scripts
             // look ahead and don't parse on already parsed addresses?
             // dataType.setAddressFromInputFilePos();
@@ -96,9 +93,7 @@ public class DataDumper {
             } catch (IOException e2) {
                 throw new RuntimeException(e2);
             }
-            if (!(dataTypeAddressPair.dataType instanceof DummyDataType)) {
-                output += dataTypeAddressPair.dataType.toString();                
-            }
+            output += dataTypeAddressPair.dataType.toString();                
         }
         try {
             this.logFile.close();

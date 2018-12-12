@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import datadumper.DataDumper;
 import datadumper.DataType;
-import datadumper.DummyDataType;
 import datadumper.FormatType;
 import datadumper.SystemTypes;
 import datadumper.common.ParsedAddressTerminatedListDT;
@@ -24,7 +23,6 @@ public class BN6FBattleSettingsTest {
         );
         String output = "";
         dumper.addDataTypeToParse(dataType, 0x39999, "TrainerGroups");
-        dumper.addDataTypeToParse(new DummyDataType(dumper, FormatType.NONE), 0x3ba67, "Dummy");
         dumper.parse();
         output = dumper.generateOutput();
         File outputFile = new File("output/crystal_trainers.txt");

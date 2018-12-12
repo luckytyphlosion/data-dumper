@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import datadumper.DataDumper;
 import datadumper.DataType;
-import datadumper.DummyDataType;
 import datadumper.FormatType;
 import datadumper.SystemTypes;
 import datadumper.common.ParsedAddressTerminatedListDT;
@@ -20,12 +19,11 @@ public class CrystalTrainerPartiesTest {
         DataDumper dumper = new DataDumper(inputFileName, "r", SystemTypes.gb);
         DataType dataType = new ParsedAddressTerminatedListDT(dumper, FormatType.NONE,
             new GBPointerDT(dumper, FormatType.BLOCK,
-                new ParsedAddressTerminatedListDT(dumper, FormatType.NONE, new TrainerPartyDT(dumper, FormatType.NONE))
+                new ParsedAddressTerminatedListDT(dumper, FormatType.NONE, 0x3ba67, new TrainerPartyDT(dumper, FormatType.NONE))
             )
         );
         String output = "";
         dumper.addDataTypeToParse(dataType, 0x39999, "TrainerGroups");
-        dumper.addDataTypeToParse(new DummyDataType(dumper, FormatType.NONE), 0x3ba67, "Dummy");
         dumper.parse();
         output = dumper.generateOutput();
         File outputFile = new File("output/crystal_trainers.txt");

@@ -12,7 +12,6 @@ public class EvosEntryDT extends DataType {
 
     protected EvoMethodEnumDT evoMethod;
     protected AnonymousTemplateDT chosenEvoMethodTemplate;
-    protected SystemType systemType = SystemTypes.gb;
 
     protected DataType[] evLevelTradeTemplate = new DataType[] {
             new DecByteDT(this.dumper, FormatType.INLINE),
@@ -54,6 +53,11 @@ public class EvosEntryDT extends DataType {
     @Override
     public String getBlockFormatPrefix() {
         return "";
+    }
+
+    @Override
+    public SystemType getSystemType() {
+        return SystemTypes.gb;
     }
 
 }

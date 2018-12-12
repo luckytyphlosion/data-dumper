@@ -111,8 +111,6 @@ public class ItemEnumDT extends EnumDT {
         FLOOR_B4F
     };
 
-    protected SystemType systemType = SystemTypes.gb;
-
     public ItemEnumDT(DataDumper dumper, FormatType format) {
         super(dumper, format);
     }
@@ -134,5 +132,10 @@ public class ItemEnumDT extends EnumDT {
     @Override
     public int getSize() {
         return GBPrimitive.BYTE;
+    }
+
+    @Override
+    public SystemType getSystemType() {
+        return SystemTypes.gb;
     }
 }

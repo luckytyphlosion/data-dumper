@@ -11,7 +11,6 @@ public abstract class DataType {
     protected String label;
     protected FormatType format;
     protected DataType related;
-    protected SystemType systemType;
 
     public static final NullDataType nullDataType = new NullDataType(null, null);
 
@@ -26,7 +25,6 @@ public abstract class DataType {
         this.label = "";
         if (this.dumper != null) {
             this.inputFile = this.dumper.getInputFile();
-            this.systemType = this.dumper.getSystemType();
         }
     }
 
@@ -141,7 +139,7 @@ public abstract class DataType {
     }
 
     public SystemType getSystemType() {
-        return this.systemType;
+        return this.dumper.getSystemType();
     }
 
     public long readFromSizeArg(int size) {

@@ -10,8 +10,6 @@ import datadumper.common.TemplateDT;
 
 public class LevelMoveTemplateDT extends TemplateDT {
 
-    protected SystemType systemType = SystemTypes.gb;
-
     public LevelMoveTemplateDT(DataDumper dumper, FormatType format) {
         super(dumper, format);
     }
@@ -26,6 +24,11 @@ public class LevelMoveTemplateDT extends TemplateDT {
             new DecByteDT(this.dumper, FormatType.BLOCK),
             new MoveEnumDT(this.dumper, FormatType.INLINE)
         };
+    }
+
+    @Override
+    public SystemType getSystemType() {
+        return SystemTypes.gb;
     }
 
 }

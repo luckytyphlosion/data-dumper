@@ -14,8 +14,6 @@ public class EvoMethodEnumDT extends EnumDT {
         EV_ERROR, EV_LEVEL, EV_ITEM, EV_TRADE
     }
 
-    protected SystemType systemType = SystemTypes.gb;
-
     public EvoMethodEnumDT(DataDumper dumper, FormatType format) {
         super(dumper, format);
     }
@@ -37,5 +35,10 @@ public class EvoMethodEnumDT extends EnumDT {
     @Override
     public int getSize() {
         return GBPrimitive.BYTE;
+    }
+    
+    @Override
+    public SystemType getSystemType() {
+        return SystemTypes.gb;
     }
 }

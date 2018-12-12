@@ -178,8 +178,6 @@ public class MoveEnumDT extends EnumDT {
         SUBSTITUTE
     };
 
-    protected SystemType systemType = SystemTypes.gb;
-
     public MoveEnumDT(DataDumper dumper, FormatType format) {
         super(dumper, format);
     }
@@ -201,6 +199,11 @@ public class MoveEnumDT extends EnumDT {
     @Override
     public int getSize() {
         return GBPrimitive.BYTE;
+    }
+
+    @Override
+    public SystemType getSystemType() {
+        return SystemTypes.gb;
     }
 
 }

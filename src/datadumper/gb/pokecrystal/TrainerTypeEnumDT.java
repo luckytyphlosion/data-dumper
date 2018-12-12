@@ -3,6 +3,8 @@ package datadumper.gb.pokecrystal;
 import datadumper.DataDumper;
 import datadumper.DataType;
 import datadumper.FormatType;
+import datadumper.SystemType;
+import datadumper.SystemTypes;
 import datadumper.common.EnumDT;
 import datadumper.gb.GBPrimitive;
 
@@ -38,4 +40,8 @@ public class TrainerTypeEnumDT extends EnumDT {
         return GBPrimitive.BYTE;
     }
 
+    @Override
+    public SystemType getSystemType() {
+        return SystemTypes.gb;
+    }
 }

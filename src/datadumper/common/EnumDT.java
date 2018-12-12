@@ -32,9 +32,4 @@ public abstract class EnumDT extends PrimitiveDT {
 
     public abstract int getStartingValue();
 
-    @Override
-    public String getBlockFormatPrefix() {
-        return this.getSystemType().getPrefixFromSize(this.getSize());
-    }
-
 }

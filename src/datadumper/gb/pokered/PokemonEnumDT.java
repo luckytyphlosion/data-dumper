@@ -204,8 +204,6 @@ public class PokemonEnumDT extends EnumDT {
             VICTREEBEL
     };
 
-    protected SystemType systemType = SystemTypes.gb;
-
     public PokemonEnumDT(DataDumper dumper, FormatType format) {
         super(dumper, format);
     }
@@ -227,5 +225,10 @@ public class PokemonEnumDT extends EnumDT {
     @Override
     public int getSize() {
         return GBPrimitive.BYTE;
+    }
+    
+    @Override
+    public SystemType getSystemType() {
+        return SystemTypes.gb;
     }
 }

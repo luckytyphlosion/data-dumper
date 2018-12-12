@@ -4,16 +4,16 @@ import datadumper.DataDumper;
 import datadumper.DataType;
 import datadumper.FormatType;
 
-public class AnonymousImmediateCommandDT extends ImmediateCommandDT {
+public class AnonCommandDT extends CommandDT {
 
     protected DataType[] possibleDataTypes;
 
-    public AnonymousImmediateCommandDT(DataDumper dumper, FormatType format, PrimitiveDT commandDataType, DataType[] possibleDataTypes) {
+    public AnonCommandDT(DataDumper dumper, FormatType format, PrimitiveDT commandDataType, DataType[] possibleDataTypes) {
         super(dumper, format, commandDataType);
         this.possibleDataTypes = possibleDataTypes;
     }
 
-    public AnonymousImmediateCommandDT(DataDumper dumper, FormatType format, PrimitiveDT commandDataType, DataType related, DataType[] possibleDataTypes) {
+    public AnonCommandDT(DataDumper dumper, FormatType format, PrimitiveDT commandDataType, DataType related, DataType[] possibleDataTypes) {
         super(dumper, format, commandDataType, related);
         this.possibleDataTypes = possibleDataTypes;
     }
@@ -24,7 +24,7 @@ public class AnonymousImmediateCommandDT extends ImmediateCommandDT {
             newPossibleDataTypes[i] = this.possibleDataTypes[i].createCopy();
         }
 
-        return new AnonymousImmediateCommandDT(this.dumper, this.format, (PrimitiveDT)this.commandDataType.createCopy(), this.related.createCopy(), newPossibleDataTypes);
+        return new AnonCommandDT(this.dumper, this.format, (PrimitiveDT)this.commandDataType.createCopy(), this.related.createCopy(), newPossibleDataTypes);
     }
 
     @Override

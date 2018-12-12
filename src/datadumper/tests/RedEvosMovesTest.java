@@ -8,7 +8,7 @@ import datadumper.DataDumper;
 import datadumper.DataType;
 import datadumper.FormatType;
 import datadumper.SystemTypes;
-import datadumper.common.AnonymousTemplateDT;
+import datadumper.common.AnonTemplateDT;
 import datadumper.common.EnumListDT;
 import datadumper.common.SentinelListDT;
 import datadumper.gb.GBPointerDT;
@@ -22,7 +22,7 @@ public class RedEvosMovesTest {
         DataDumper dumper = new DataDumper(inputFileName, "r", SystemTypes.gb);
         DataType dataType = new EnumListDT(dumper, FormatType.NONE, PokemonEnumDT.class,
             new GBPointerDT(dumper, FormatType.BLOCK,
-                new AnonymousTemplateDT(dumper, FormatType.NONE, new DataType[] {
+                new AnonTemplateDT(dumper, FormatType.NONE, new DataType[] {
                     new SentinelListDT(dumper, FormatType.NONE, "1%d", 0, FormatType.BLOCK, 
                         new EvosEntryDT(dumper, FormatType.NONE)),
                     new SentinelListDT(dumper, FormatType.NONE, "1%d", 0, FormatType.BLOCK,

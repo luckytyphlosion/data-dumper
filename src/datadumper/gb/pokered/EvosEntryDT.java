@@ -5,13 +5,13 @@ import datadumper.DataType;
 import datadumper.FormatType;
 import datadumper.SystemType;
 import datadumper.SystemTypes;
-import datadumper.common.AnonymousTemplateDT;
+import datadumper.common.AnonTemplateDT;
 import datadumper.common.DecByteDT;
 
 public class EvosEntryDT extends DataType {
 
     protected EvoMethodEnumDT evoMethod;
-    protected AnonymousTemplateDT chosenEvoMethodTemplate;
+    protected AnonTemplateDT chosenEvoMethodTemplate;
 
     protected DataType[] evLevelTradeTemplate = new DataType[] {
             new DecByteDT(this.dumper, FormatType.INLINE),
@@ -38,9 +38,9 @@ public class EvosEntryDT extends DataType {
         this.evoMethod.parse();
         // EV_ITEM, todo use java Enum
         if (this.evoMethod.getValue() != 2) {
-            this.chosenEvoMethodTemplate = new AnonymousTemplateDT(this.dumper, FormatType.NONE, evLevelTradeTemplate);
+            this.chosenEvoMethodTemplate = new AnonTemplateDT(this.dumper, FormatType.NONE, evLevelTradeTemplate);
         } else {
-            this.chosenEvoMethodTemplate = new AnonymousTemplateDT(this.dumper, FormatType.NONE, evItemTemplate);
+            this.chosenEvoMethodTemplate = new AnonTemplateDT(this.dumper, FormatType.NONE, evItemTemplate);
         }
         this.chosenEvoMethodTemplate.parse();
     }

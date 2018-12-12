@@ -4,16 +4,16 @@ import datadumper.DataDumper;
 import datadumper.DataType;
 import datadumper.FormatType;
 
-public class AnonymousTemplateDT extends TemplateDT {
+public class AnonTemplateDT extends TemplateDT {
 
     protected DataType[] tempTemplate;
 
-    public AnonymousTemplateDT(DataDumper dumper, FormatType format, DataType[] tempTemplate) {
+    public AnonTemplateDT(DataDumper dumper, FormatType format, DataType[] tempTemplate) {
         super(dumper, format);
         this.tempTemplate = tempTemplate;
     }
 
-    public AnonymousTemplateDT(DataDumper dumper, FormatType format, DataType related, DataType[] tempTemplate) {
+    public AnonTemplateDT(DataDumper dumper, FormatType format, DataType related, DataType[] tempTemplate) {
         super(dumper, format, related);
         this.tempTemplate = tempTemplate;
     }
@@ -24,7 +24,7 @@ public class AnonymousTemplateDT extends TemplateDT {
             newTemplate[i] = this.tempTemplate[i].createCopy();
         }
 
-        return new AnonymousTemplateDT(this.dumper, this.format, this.related.createCopy(), newTemplate);
+        return new AnonTemplateDT(this.dumper, this.format, this.related.createCopy(), newTemplate);
     }
 
     @Override

@@ -4,16 +4,16 @@ import datadumper.DataDumper;
 import datadumper.DataType;
 import datadumper.FormatType;
 
-public abstract class ImmediateCommandDT extends UnionDT {
+public abstract class CommandDT extends UnionDT {
 
     protected PrimitiveDT commandDataType;
 
-    public ImmediateCommandDT(DataDumper dumper, FormatType format, PrimitiveDT commandDataType) {
+    public CommandDT(DataDumper dumper, FormatType format, PrimitiveDT commandDataType) {
         super(dumper, format);
         this.commandDataType = commandDataType;
     }
 
-    public ImmediateCommandDT(DataDumper dumper, FormatType format, PrimitiveDT commandDataType, DataType related) {
+    public CommandDT(DataDumper dumper, FormatType format, PrimitiveDT commandDataType, DataType related) {
         super(dumper, format, related);
         this.commandDataType = commandDataType;
     }

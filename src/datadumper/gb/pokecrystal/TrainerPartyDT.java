@@ -3,8 +3,8 @@ package datadumper.gb.pokecrystal;
 import datadumper.DataDumper;
 import datadumper.DataType;
 import datadumper.FormatType;
-import datadumper.common.AnonymousImmediateCommandDT;
-import datadumper.common.AnonymousTemplateDT;
+import datadumper.common.AnonCommandDT;
+import datadumper.common.AnonTemplateDT;
 import datadumper.common.DecByteDT;
 import datadumper.common.RawPrimitiveDT;
 //import datadumper.common.StringDT;
@@ -32,13 +32,13 @@ public class TrainerPartyDT extends TemplateDT {
                 )
             ), // TODO make String class
          
-            new AnonymousImmediateCommandDT(
+            new AnonCommandDT(
                 dumper, FormatType.NONE,
                 new TrainerTypeEnumDT(dumper, FormatType.INLINE), 
                 new DataType[] {
                     new SentinelListDT(
                         dumper, FormatType.NONE, "1%02x", 0xff, FormatType.BLOCK, 
-                        new AnonymousTemplateDT(dumper, FormatType.NONE,
+                        new AnonTemplateDT(dumper, FormatType.NONE,
                             new DataType[] {
                                 new DecByteDT(dumper, FormatType.BLOCK),
                                 new PokemonEnumDT(dumper, FormatType.INLINE)
@@ -47,7 +47,7 @@ public class TrainerPartyDT extends TemplateDT {
                     ),
                     new SentinelListDT(
                         dumper, FormatType.NONE, "1%02x", 0xff, FormatType.BLOCK, 
-                        new AnonymousTemplateDT(dumper, FormatType.NONE,
+                        new AnonTemplateDT(dumper, FormatType.NONE,
                             new DataType[] {
                                 new DecByteDT(dumper, FormatType.BLOCK),
                                 new PokemonEnumDT(dumper, FormatType.INLINE),
@@ -59,7 +59,7 @@ public class TrainerPartyDT extends TemplateDT {
                         )
                     ),
                     new SentinelListDT(dumper, FormatType.NONE, "1%02x", 0xff, FormatType.BLOCK, 
-                        new AnonymousTemplateDT(dumper, FormatType.NONE,
+                        new AnonTemplateDT(dumper, FormatType.NONE,
                             new DataType[] {
                                 new DecByteDT(dumper, FormatType.BLOCK),
                                 new PokemonEnumDT(dumper, FormatType.INLINE),
@@ -68,7 +68,7 @@ public class TrainerPartyDT extends TemplateDT {
                         )
                     ),
                     new SentinelListDT(dumper, FormatType.NONE, "1%02x", 0xff, FormatType.BLOCK, 
-                        new AnonymousTemplateDT(dumper, FormatType.NONE,
+                        new AnonTemplateDT(dumper, FormatType.NONE,
                             new DataType[] {
                                 new DecByteDT(dumper, FormatType.BLOCK),
                                 new PokemonEnumDT(dumper, FormatType.INLINE),

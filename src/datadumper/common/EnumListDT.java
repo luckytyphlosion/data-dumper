@@ -7,20 +7,20 @@ import datadumper.DataDumper;
 import datadumper.DataType;
 import datadumper.FormatType;
 
-public class EnumTerminatedListDT extends ListDT {
+public class EnumListDT extends ListDT {
 
     protected int loopIndex;
     protected EnumDT enumDataType;
     protected static HashMap<Class<? extends EnumDT>, EnumDT> enumCacheMap;
 
     static {
-        EnumTerminatedListDT.enumCacheMap = new HashMap<Class<? extends EnumDT>, EnumDT>();
+        EnumListDT.enumCacheMap = new HashMap<Class<? extends EnumDT>, EnumDT>();
     }
 
-    public EnumTerminatedListDT(DataDumper dumper, FormatType format, Class<? extends EnumDT> enumDataTypeClass, DataType related) {
+    public EnumListDT(DataDumper dumper, FormatType format, Class<? extends EnumDT> enumDataTypeClass, DataType related) {
         super(dumper, format, related);
-        if (EnumTerminatedListDT.enumCacheMap.containsKey(enumDataTypeClass)) {
-            this.enumDataType = EnumTerminatedListDT.enumCacheMap.get(enumDataTypeClass);
+        if (EnumListDT.enumCacheMap.containsKey(enumDataTypeClass)) {
+            this.enumDataType = EnumListDT.enumCacheMap.get(enumDataTypeClass);
         } else {
             try {
                 this.enumDataType = enumDataTypeClass.getConstructor(DataDumper.class, FormatType.class).newInstance(this.dumper, this.format);
@@ -35,7 +35,7 @@ public class EnumTerminatedListDT extends ListDT {
     }
 
     public DataType createCopy() {
-        return new EnumTerminatedListDT(this.dumper, this.format, this.enumDataType.getClass(), this.related.createCopy());
+        return new EnumListDT(this.dumper, this.format, this.enumDataType.getClass(), this.related.createCopy());
     }
 
     @Override

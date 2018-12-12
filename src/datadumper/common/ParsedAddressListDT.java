@@ -10,21 +10,21 @@ import datadumper.FormatType;
 // very bad heuristic list
 // parses until the address it currently is on has been added previously
 
-public class ParsedAddressTerminatedListDT extends ListDT {
+public class ParsedAddressListDT extends ListDT {
 
     protected long stopAddress;
 
-    public ParsedAddressTerminatedListDT(DataDumper dumper, FormatType format, DataType related) {
+    public ParsedAddressListDT(DataDumper dumper, FormatType format, DataType related) {
         this(dumper, format, -1, related);
     }
 
-    public ParsedAddressTerminatedListDT(DataDumper dumper, FormatType format, long stopAddress, DataType related) {
+    public ParsedAddressListDT(DataDumper dumper, FormatType format, long stopAddress, DataType related) {
         super(dumper, format, related);
         this.stopAddress = stopAddress;
     }
 
     public DataType createCopy() {
-        return new ParsedAddressTerminatedListDT(this.dumper, this.format, this.stopAddress, this.related);
+        return new ParsedAddressListDT(this.dumper, this.format, this.stopAddress, this.related);
     }
 
     @Override

@@ -8,7 +8,7 @@ import datadumper.DataDumper;
 import datadumper.DataType;
 import datadumper.FormatType;
 import datadumper.SystemTypes;
-import datadumper.common.ParsedAddressTerminatedListDT;
+import datadumper.common.ParsedAddressListDT;
 import datadumper.gb.GBPointerDT;
 import datadumper.gb.pokecrystal.TrainerPartyDT;
 
@@ -16,9 +16,9 @@ public class BN6FBattleSettingsTest {
     public static void test() {
         String inputFileName = "bn6f.gba";
         DataDumper dumper = new DataDumper(inputFileName, "r", SystemTypes.gbaFlavour1);
-        DataType dataType = new ParsedAddressTerminatedListDT(dumper, FormatType.NONE,
+        DataType dataType = new ParsedAddressListDT(dumper, FormatType.NONE,
             new GBPointerDT(dumper, FormatType.BLOCK,
-                new ParsedAddressTerminatedListDT(dumper, FormatType.NONE, new TrainerPartyDT(dumper, FormatType.NONE))
+                new ParsedAddressListDT(dumper, FormatType.NONE, new TrainerPartyDT(dumper, FormatType.NONE))
             )
         );
         String output = "";

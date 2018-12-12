@@ -4,7 +4,7 @@ import datadumper.DataDumper;
 import datadumper.DataType;
 import datadumper.FormatType;
 
-public class SentinelTerminatedListDT extends ListDT {
+public class SentinelListDT extends ListDT {
 
     protected long sentinel;
     protected FormatType sentinelFormat;
@@ -12,7 +12,7 @@ public class SentinelTerminatedListDT extends ListDT {
     protected String formatStr;
     protected int sentinelSize;
 
-    public SentinelTerminatedListDT(DataDumper dumper, FormatType format, String formatStr, long sentinel, FormatType sentinelFormat, DataType related) {
+    public SentinelListDT(DataDumper dumper, FormatType format, String formatStr, long sentinel, FormatType sentinelFormat, DataType related) {
         super(dumper, format, related);
         this.formatStr = formatStr;
         this.sentinel = sentinel;
@@ -28,7 +28,7 @@ public class SentinelTerminatedListDT extends ListDT {
     }
 
     public DataType createCopy() {
-        return new SentinelTerminatedListDT(this.dumper, this.format, this.formatStr, this.sentinel, this.sentinelFormat, this.related.createCopy());
+        return new SentinelListDT(this.dumper, this.format, this.formatStr, this.sentinel, this.sentinelFormat, this.related.createCopy());
     }
 
     @Override

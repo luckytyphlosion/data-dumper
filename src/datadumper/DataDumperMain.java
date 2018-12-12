@@ -34,7 +34,7 @@ public class DataDumperMain {
 			);*/
 
     public static void main(String[] args) {
-        CrystalTrainerPartiesTest.test();
+        RedEvosMovesTest.test();
         //System.out.println(output);
     }
 }

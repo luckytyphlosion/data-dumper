@@ -31,6 +31,11 @@ public abstract class ImmediateCommandDT extends UnionDT {
         return this.getPossibleDataTypes()[this.commandDataType.getValueAsInt()];
     }
 
+    @Override
+    public String beforeDatatypeAsStr() {
+        return this.commandDataType.toString();
+    }
+
     public abstract DataType[] getPossibleDataTypes();
 
 }

@@ -26,7 +26,11 @@ public abstract class UnionDT extends DataType {
 
     @Override
     public String getDatatypeAsStr() {
-        return this.chosenDataType.toString();
+        return this.beforeDatatypeAsStr() + this.chosenDataType.toString();
+    }
+
+    public String beforeDatatypeAsStr() {
+        return "";
     }
 
     @Override

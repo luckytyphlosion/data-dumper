@@ -2,13 +2,14 @@ package datadumper.gb.pokecrystal;
 
 import datadumper.DataDumper;
 import datadumper.DataType;
+import datadumper.EnumType;
 import datadumper.FormatType;
 import datadumper.common.EnumDT;
 import datadumper.gb.GBPrimitive;
 
 public class PokemonEnumDT extends EnumDT {
 
-    public enum PokemonEnum {
+    public enum PokemonEnum implements EnumType {
         NO_POKEMON,
         BULBASAUR,
         IVYSAUR,
@@ -275,7 +276,7 @@ public class PokemonEnumDT extends EnumDT {
     }
 
     @Override
-    public Enum<?>[] getEnumNameArray() {
+    public EnumType[] getEnumNameArray() {
         return PokemonEnumDT.PokemonEnum.values();
     }
 

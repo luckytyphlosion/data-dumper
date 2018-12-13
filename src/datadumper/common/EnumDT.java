@@ -1,7 +1,10 @@
 package datadumper.common;
 
+import com.google.common.base.CaseFormat;
+
 import datadumper.DataDumper;
 import datadumper.DataType;
+import datadumper.EnumType;
 import datadumper.FormatType;
 
 public abstract class EnumDT extends PrimitiveDT {
@@ -28,8 +31,11 @@ public abstract class EnumDT extends PrimitiveDT {
         return this.getEnumNameArray()[Math.toIntExact(this.value)].toString();
     }
 
-    public abstract Enum<?>[] getEnumNameArray();
+    public abstract EnumType[] getEnumNameArray();
 
     public abstract int getStartingValue();
 
+    public String getEnumLabelNameFromIndex(int index) {
+        return this.getEnumNameArray()[index].getEnumLabelName();
+    }
 }

@@ -10,6 +10,7 @@ import datadumper.GenericDataType;
 public abstract class ListDT extends GenericDataType {
 
     protected ArrayList<DataType> dataTypeList;
+    protected int loopIndex;
 
     public ListDT(DataDumper dumper, FormatType format, DataType related) {
         super(dumper, format, related);
@@ -18,11 +19,18 @@ public abstract class ListDT extends GenericDataType {
 
     @Override
     public void parseData() {
-        while (loopCondition()) {
+        this.loopIndex = this.getInitialLoopIndex();
+        this.dumper.allocateLoopIndex(this.loopIndex);
+        for (; loopCondition(); this.dumper.setCurrentLoopIndex(++this.loopIndex)) {
             DataType dataType = this.related.createCopy();
             dataTypeList.add(dataType);
             dataType.parse();
         }
+    }
+
+    // Override this
+    public int getInitialLoopIndex() {
+        return 0;
     }
 
     public abstract boolean loopCondition();

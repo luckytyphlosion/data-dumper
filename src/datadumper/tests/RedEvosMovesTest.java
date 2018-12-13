@@ -21,7 +21,7 @@ public class RedEvosMovesTest {
         String inputFileName = "blue_tests.gb";
         DataDumper dumper = new DataDumper(inputFileName, "r", SystemTypes.gb);
         DataType dataType = new EnumListDT(dumper, FormatType.NONE, PokemonEnumDT.class,
-            new GBPointerDT(dumper, FormatType.BLOCK,
+            new GBPointerDT(dumper, FormatType.BLOCK, "%eEvosMoves",
                 new AnonTemplateDT(dumper, FormatType.NONE, new DataType[] {
                     new SentinelListDT(dumper, FormatType.NONE, "1%d", 0, FormatType.BLOCK, 
                         new EvosEntryDT(dumper, FormatType.NONE)),
@@ -31,7 +31,7 @@ public class RedEvosMovesTest {
             )
         );
         String output = "";
-        dumper.addDataTypeToParse(dataType, 0x3B05CL, "EvosMovesPointerTable");
+        dumper.addDataTypeToQueue(dataType, 0x3B05CL, "EvosMovesPointerTable");
         dumper.parse();
         output = dumper.generateOutput() + "\n";
         File outputFile = new File("output/output.txt");

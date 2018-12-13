@@ -2,6 +2,7 @@ package datadumper.gb.pokecrystal;
 
 import datadumper.DataDumper;
 import datadumper.DataType;
+import datadumper.EnumType;
 import datadumper.FormatType;
 import datadumper.SystemType;
 import datadumper.SystemTypes;
@@ -10,7 +11,7 @@ import datadumper.gb.GBPrimitive;
 
 public class TrainerTypeEnumDT extends EnumDT {
 
-    public enum TrainerTypeEnum {
+    public enum TrainerTypeEnum implements EnumType {
         TRAINERTYPE_NORMAL,
         TRAINERTYPE_MOVES,
         TRAINERTYPE_ITEM,
@@ -26,7 +27,7 @@ public class TrainerTypeEnumDT extends EnumDT {
     }
 
     @Override
-    public Enum<?>[] getEnumNameArray() {
+    public EnumType[] getEnumNameArray() {
         return TrainerTypeEnumDT.TrainerTypeEnum.values();
     }
 

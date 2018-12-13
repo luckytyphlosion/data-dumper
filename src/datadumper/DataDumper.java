@@ -9,15 +9,17 @@ import java.util.ArrayList;
 
 public class DataDumper {
     private DataDumperInputFile inputFile;
-    private ArrayList<DataTypeAddressPair> dataTypesToParse;
+    private ArrayList<QueuedDataType> dataTypeQueue;
     private ArrayList<Long> parsedAddresses;
     private SystemType systemType;
     private BufferedWriter logFile;
-    //private HashSet<String> outputtedLabels;
+    private ArrayList<String> enumLabelList;
+    private ArrayList<Integer> loopIndicesList;
+    private QueuedDataType currentQueuedDataType;
 
     public DataDumper(String name, String mode, SystemType systemType) {
         this.inputFile = new DataDumperInputFile(name, mode);
-        this.dataTypesToParse = new ArrayList<DataTypeAddressPair>();
+        this.dataTypeQueue = new ArrayList<QueuedDataType>();
         this.parsedAddresses = new ArrayList<Long>();
         this.systemType = systemType;
         try {
@@ -27,12 +29,19 @@ public class DataDumper {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        this.enumLabelList = new ArrayList<String>();
+        this.loopIndicesList = new ArrayList<Integer>();
+        this.currentQueuedDataType = new QueuedDataType(DataType.nullDataType, -1, "Error");
     }
 
-    public void addDataTypeToParse(DataType dataType, long address, String label) {
+    public void addDataTypeToQueue(DataType dataType, long address, String label) {
+        addDataTypeToQueue(dataType, address, label, "Error");
+    }
+
+    public void addDataTypeToQueue(DataType dataType, long address, String label, String parentBaseLabel) {
         dataType.setLabel(label);
         //System.out.println(String.format("%x", address));
-        this.dataTypesToParse.add(new DataTypeAddressPair(dataType, address));
+        this.dataTypeQueue.add(new QueuedDataType(dataType, address, parentBaseLabel));
     }
 
     public void addParsedAddress(long address) {
@@ -47,13 +56,45 @@ public class DataDumper {
         return this.systemType;
     }
 
-    public ArrayList<DataTypeAddressPair> getDataTypesToParse() {
-        return this.dataTypesToParse;
+    public ArrayList<QueuedDataType> getDataTypeQueue() {
+        return this.dataTypeQueue;
     }
 
     /*public boolean addOutputtedLabel(String label) {
 
     }*/
+
+    public void allocateEnumLabel() {
+        this.enumLabelList.add("");
+    }
+
+    public void deallocateEnumLabel() {
+        this.enumLabelList.remove(this.enumLabelList.size() - 1);
+    }
+
+    public void setCurrentEnumLabel(String enumLabel) {
+        this.enumLabelList.set(this.enumLabelList.size() - 1, enumLabel);
+    }
+
+    public String getCurrentEnumLabel() {
+        return this.enumLabelList.get(this.enumLabelList.size() - 1);
+    }
+
+    public void allocateLoopIndex(int loopIndex) {
+        this.loopIndicesList.add(loopIndex);
+    }
+
+    public void deallocateLoopIndex() {
+        this.loopIndicesList.remove(this.loopIndicesList.size() - 1);
+    }
+
+    public void setCurrentLoopIndex(int loopIndex) {
+        this.loopIndicesList.set(this.loopIndicesList.size() - 1, loopIndex);
+    }
+
+    public int getCurrentLoopIndex() {
+        return this.loopIndicesList.get(this.loopIndicesList.size() - 1);
+    }
 
     public ArrayList<Long> getParsedAddresses() {
         return this.parsedAddresses;
@@ -68,16 +109,19 @@ public class DataDumper {
         // Since the only modification operation allowed is add, an indexed for-loop is used with size() as upper bound
         // to account for new elements added
         // ListIterator inserts the element in-between the current and next element, which is not wanted.
-        for (int i = 0; i < dataTypesToParse.size(); i++) {
-            DataTypeAddressPair dataTypeAddressPair = dataTypesToParse.get(i);
-            // temp hack to stop parsing, TODO fixme
-            this.inputFile.seek(dataTypeAddressPair.address);
-            dataTypeAddressPair.dataType.parse();
+        for (int i = 0; i < dataTypeQueue.size(); i++) {
+            this.currentQueuedDataType = dataTypeQueue.get(i);
+            this.inputFile.seek(this.currentQueuedDataType.address);
+            this.currentQueuedDataType.dataType.parse();
             // TODO figure out cases of data indirection overlap e.g. in scripts
             // look ahead and don't parse on already parsed addresses?
             // dataType.setAddressFromInputFilePos();
             // dataType.parseData();
         }
+    }
+    
+    public String getParentBaseLabel() {
+        return this.currentQueuedDataType.parentBaseLabel;
     }
 
     public String generateOutput() {
@@ -87,7 +131,7 @@ public class DataDumper {
         } catch (IOException e1) {
             throw new RuntimeException(e1);
         }
-        for (DataTypeAddressPair dataTypeAddressPair : dataTypesToParse) {
+        for (QueuedDataType dataTypeAddressPair : dataTypeQueue) {
             try {
                 this.logFile.write(String.format("Parse top level: %s at %x\n",  dataTypeAddressPair.dataType.getClass().getName(), dataTypeAddressPair.dataType.getLoadAddress()));
             } catch (IOException e2) {

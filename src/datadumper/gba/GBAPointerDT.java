@@ -9,8 +9,12 @@ public class GBAPointerDT extends PointerDT {
 
     public static final long GBA_VMA_OFFSET = 0x8000000L;
 
-    public GBAPointerDT(DataDumper dumper, FormatType format, DataType related) {
-        super(dumper, format, related);
+    public GBAPointerDT(DataDumper dumper, FormatType format, String pointerLabel, DataType related) {
+        super(dumper, format, pointerLabel, related);
+    }
+
+    public GBAPointerDT(DataDumper dumper, FormatType format, String pointerLabel, String parentBase, DataType related) {
+        super(dumper, format, pointerLabel, parentBase, related);
     }
 
     @Override
@@ -26,6 +30,11 @@ public class GBAPointerDT extends PointerDT {
     @Override
     public String getBlockFormatPrefix() {
         return ".word";
+    }
+
+    @Override
+    public String getPointerAddressAsString() {
+        return String.format("%08x", this.pointerAddress);
     }
 
 }

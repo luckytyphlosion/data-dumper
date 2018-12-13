@@ -9,7 +9,6 @@ import datadumper.FormatType;
 
 public class EnumListDT extends ListDT {
 
-    protected int loopIndex;
     protected EnumDT enumDataType;
     protected static HashMap<Class<? extends EnumDT>, EnumDT> enumCacheMap;
 
@@ -31,7 +30,7 @@ public class EnumListDT extends ListDT {
                 throw new RuntimeException(e1);
             }
         }
-        this.loopIndex = 0;
+        this.dumper.allocateEnumLabel();
     }
 
     public DataType createCopy() {
@@ -39,8 +38,20 @@ public class EnumListDT extends ListDT {
     }
 
     @Override
+    public int getInitialLoopIndex() {
+        return this.enumDataType.getStartingValue();
+    }
+
+    @Override
     public boolean loopCondition() {
-        this.loopIndex++;
-        return (this.loopIndex < (this.enumDataType.getEnumNameArray().length - this.enumDataType.getStartingValue()));
+        //System.out.println(String.format("loopIndex: %d, enumArrayLength: %d", this.loopIndex, this.enumDataType.getEnumNameArray().length));
+        boolean continueLoop = this.loopIndex < this.enumDataType.getEnumNameArray().length;
+        if (continueLoop) {
+            this.dumper.setCurrentEnumLabel(this.enumDataType.getEnumLabelNameFromIndex(this.loopIndex));
+            return true;
+        } else {
+            this.dumper.deallocateEnumLabel();
+            return false;
+        }
     }
 }

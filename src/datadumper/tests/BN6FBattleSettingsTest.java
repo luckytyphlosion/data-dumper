@@ -17,12 +17,12 @@ public class BN6FBattleSettingsTest {
         String inputFileName = "bn6f.gba";
         DataDumper dumper = new DataDumper(inputFileName, "r", SystemTypes.gbaFlavour1);
         DataType dataType = new ParsedAddressListDT(dumper, FormatType.NONE,
-            new GBPointerDT(dumper, FormatType.BLOCK,
+            new GBPointerDT(dumper, FormatType.BLOCK, "Test",
                 new ParsedAddressListDT(dumper, FormatType.NONE, new TrainerPartyDT(dumper, FormatType.NONE))
             )
         );
         String output = "";
-        dumper.addDataTypeToParse(dataType, 0x39999, "TrainerGroups");
+        dumper.addDataTypeToQueue(dataType, 0x39999, "TrainerGroups", "Error");
         dumper.parse();
         output = dumper.generateOutput();
         File outputFile = new File("output/crystal_trainers.txt");

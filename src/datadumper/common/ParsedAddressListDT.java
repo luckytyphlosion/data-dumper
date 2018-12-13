@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import datadumper.DataDumper;
 import datadumper.DataType;
-import datadumper.DataTypeAddressPair;
+import datadumper.QueuedDataType;
 import datadumper.FormatType;
 
 // very bad heuristic list
@@ -29,14 +29,14 @@ public class ParsedAddressListDT extends ListDT {
 
     @Override
     public boolean loopCondition() {
-        ArrayList<DataTypeAddressPair> dataTypesToParse = this.dumper.getDataTypesToParse();
+        ArrayList<QueuedDataType> dataTypeQueue = this.dumper.getDataTypeQueue();
         long loadAddress = this.inputFile.getFilePointer();
         if (this.stopAddress != -1 && this.stopAddress <= loadAddress) {
             return false;
         }
-        for (DataTypeAddressPair dataTypeAddressPair : dataTypesToParse) {
+        for (QueuedDataType queuedDataType : dataTypeQueue) {
             // using direct comparison to test if it's the exact same object
-            if (dataTypeAddressPair.address == loadAddress && dataTypeAddressPair.dataType != this) {
+            if (queuedDataType.address == loadAddress && queuedDataType.dataType != this) {
                 return false;
             }
         }

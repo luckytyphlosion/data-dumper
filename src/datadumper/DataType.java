@@ -100,9 +100,9 @@ public abstract class DataType {
         String output = "";
         if (this.format != FormatType.NONE) {
             boolean labelAtAddress = false;
-            ArrayList<DataTypeAddressPair> parsedDataTypes = this.dumper.getDataTypesToParse();
-            for (DataTypeAddressPair dataTypeAddressPair : parsedDataTypes) {
-                DataType dataType = dataTypeAddressPair.dataType;
+            ArrayList<QueuedDataType> dataTypeQueue = this.dumper.getDataTypeQueue();
+            for (QueuedDataType queuedDataType : dataTypeQueue) {
+                DataType dataType = queuedDataType.dataType;
                 if (dataType.getLoadAddress() == this.loadAddress && !dataType.getLabel().equals("")) {
                     labelAtAddress = true;
                     output += "\n\n" + dataType.getLabel() + ":" /* + this.getClass().getName() + "::" + this.format*/;

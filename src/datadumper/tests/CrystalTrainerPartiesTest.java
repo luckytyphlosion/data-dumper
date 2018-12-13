@@ -18,12 +18,12 @@ public class CrystalTrainerPartiesTest {
         String inputFileName = "pokecrystal.gbc";
         DataDumper dumper = new DataDumper(inputFileName, "r", SystemTypes.gb);
         DataType dataType = new ParsedAddressListDT(dumper, FormatType.NONE,
-            new GBPointerDT(dumper, FormatType.BLOCK,
+            new GBPointerDT(dumper, FormatType.BLOCK, "TrainerGroup%n",
                 new ParsedAddressListDT(dumper, FormatType.NONE, 0x3ba67, new TrainerPartyDT(dumper, FormatType.NONE))
             )
         );
         String output = "";
-        dumper.addDataTypeToParse(dataType, 0x39999, "TrainerGroups");
+        dumper.addDataTypeToQueue(dataType, 0x39999, "TrainerGroups");
         dumper.parse();
         output = dumper.generateOutput() + "\n";;
         File outputFile = new File("output/crystal_trainers.txt");

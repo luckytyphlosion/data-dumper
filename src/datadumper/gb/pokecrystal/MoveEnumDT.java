@@ -2,13 +2,14 @@ package datadumper.gb.pokecrystal;
 
 import datadumper.DataDumper;
 import datadumper.DataType;
+import datadumper.EnumType;
 import datadumper.FormatType;
 import datadumper.common.EnumDT;
 import datadumper.gb.GBPrimitive;
 
 public class MoveEnumDT extends EnumDT {
 
-    public enum MoveEnum {
+    public enum MoveEnum implements EnumType {
         NO_MOVE,
         POUND,
         KARATE_CHOP,
@@ -273,7 +274,7 @@ public class MoveEnumDT extends EnumDT {
     }
 
     @Override
-    public Enum<?>[] getEnumNameArray() {
+    public EnumType[] getEnumNameArray() {
         return MoveEnumDT.MoveEnum.values();
     }
 

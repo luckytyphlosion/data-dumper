@@ -2,6 +2,7 @@ package datadumper.gb.pokered;
 
 import datadumper.DataDumper;
 import datadumper.DataType;
+import datadumper.EnumType;
 import datadumper.FormatType;
 import datadumper.SystemType;
 import datadumper.SystemTypes;
@@ -10,7 +11,7 @@ import datadumper.gb.GBPrimitive;
 
 public class ItemEnumDT extends EnumDT {
 
-    public enum ItemEnum {
+    public enum ItemEnum implements EnumType {
         NO_ITEM,
         MASTER_BALL,
         ULTRA_BALL,
@@ -120,7 +121,7 @@ public class ItemEnumDT extends EnumDT {
     }
 
     @Override
-    public Enum<?>[] getEnumNameArray() {
+    public EnumType[] getEnumNameArray() {
         return ItemEnumDT.ItemEnum.values();
     }
 

@@ -2,6 +2,7 @@ package datadumper.gb.pokered;
 
 import datadumper.DataDumper;
 import datadumper.DataType;
+import datadumper.EnumType;
 import datadumper.FormatType;
 import datadumper.SystemType;
 import datadumper.SystemTypes;
@@ -10,7 +11,7 @@ import datadumper.gb.GBPrimitive;
 
 public class MoveEnumDT extends EnumDT {
 
-    public enum MoveEnum {
+    public enum MoveEnum implements EnumType {
         NO_MOVE,
         POUND,
         KARATE_CHOP,
@@ -187,7 +188,7 @@ public class MoveEnumDT extends EnumDT {
     }
 
     @Override
-    public Enum<?>[] getEnumNameArray() {
+    public EnumType[] getEnumNameArray() {
         return MoveEnumDT.MoveEnum.values();
     }
 
@@ -195,7 +196,7 @@ public class MoveEnumDT extends EnumDT {
     public int getStartingValue() {
         return 1;
     }
-    
+
     @Override
     public int getSize() {
         return GBPrimitive.BYTE;

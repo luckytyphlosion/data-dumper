@@ -9,8 +9,12 @@ public class GBPointerDT extends PointerDT {
 
     public static final long GB_HOME_BANK_END_ADDRESS = 0x4000L;
 
-    public GBPointerDT(DataDumper dumper, FormatType format, DataType related) {
-        super(dumper, format, related);
+    public GBPointerDT(DataDumper dumper, FormatType format, String pointerLabel, DataType related) {
+        super(dumper, format, pointerLabel, related);
+    }
+
+    public GBPointerDT(DataDumper dumper, FormatType format, String pointerLabel, String parentBase, DataType related) {
+        super(dumper, format, pointerLabel, parentBase, related);
     }
 
     public long readPointer() {
@@ -23,13 +27,13 @@ public class GBPointerDT extends PointerDT {
     }
 
     @Override
-    public String getDatatypeAsStr() {
-        return String.format("Unknown%04x", this.pointerAddress);
+    public String getBlockFormatPrefix() {
+        return "dw";
     }
 
     @Override
-    public String getBlockFormatPrefix() {
-        return "dw";
+    public String getPointerAddressAsString() {
+        return String.format("%04x", this.pointerAddress);
     }
 
 }

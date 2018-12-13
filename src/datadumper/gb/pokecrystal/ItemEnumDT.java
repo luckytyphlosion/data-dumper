@@ -2,13 +2,14 @@ package datadumper.gb.pokecrystal;
 
 import datadumper.DataDumper;
 import datadumper.DataType;
+import datadumper.EnumType;
 import datadumper.FormatType;
 import datadumper.common.EnumDT;
 import datadumper.gb.GBPrimitive;
 
 public class ItemEnumDT extends EnumDT {
 
-    public enum ItemEnum {
+    public enum ItemEnum implements EnumType {
         NO_ITEM,
         MASTER_BALL,
         ULTRA_BALL,
@@ -270,7 +271,7 @@ public class ItemEnumDT extends EnumDT {
     }
 
     @Override
-    public Enum<?>[] getEnumNameArray() {
+    public EnumType[] getEnumNameArray() {
         return ItemEnumDT.ItemEnum.values();
     }
 

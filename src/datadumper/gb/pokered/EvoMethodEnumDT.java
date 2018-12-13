@@ -2,6 +2,7 @@ package datadumper.gb.pokered;
 
 import datadumper.DataDumper;
 import datadumper.DataType;
+import datadumper.EnumType;
 import datadumper.FormatType;
 import datadumper.SystemType;
 import datadumper.SystemTypes;
@@ -10,7 +11,7 @@ import datadumper.gb.GBPrimitive;
 
 public class EvoMethodEnumDT extends EnumDT {
 
-    public enum EvoMethodEnum {
+    public enum EvoMethodEnum implements EnumType {
         EV_ERROR, EV_LEVEL, EV_ITEM, EV_TRADE
     }
 
@@ -23,7 +24,7 @@ public class EvoMethodEnumDT extends EnumDT {
     }
 
     @Override
-    public Enum<?>[] getEnumNameArray() {
+    public EnumType[] getEnumNameArray() {
         return EvoMethodEnumDT.EvoMethodEnum.values();
     }
 

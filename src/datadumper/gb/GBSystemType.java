@@ -40,4 +40,15 @@ public class GBSystemType extends SystemType {
     public Endianness getDefaultEndianness() {
         return Endianness.LITTLE;
     }
+
+    @Override
+    public String generateUnparsedMemoryRangeOutput(long beginAddress, long endAddress) {
+        // TODO actually split incbins across banks
+        return String.format("\tdr $%x, $%x\n", beginAddress, endAddress);
+    }
+
+    @Override
+    public String getCommentPrefix() {
+        return ";";
+    }
 }

@@ -56,4 +56,14 @@ public class GBASystemType extends SystemType {
     public Endianness getDefaultEndianness() {
         return Endianness.LITTLE;
     }
+
+    @Override
+    public String generateUnparsedMemoryRangeOutput(long beginAddress, long endAddress) {
+        return String.format("\t.incbin \"baserom.gba\", 0x%x, 0x%x", beginAddress, endAddress - beginAddress);
+    }
+
+    @Override
+    public String getCommentPrefix() {
+        return "//";
+    }
 }

@@ -6,11 +6,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 public class DataDumper {
     private DataDumperInputFile inputFile;
     private ArrayList<QueuedDataType> dataTypeQueue;
-    private ArrayList<Long> parsedAddresses;
+    private HashSet<Long> parsedTopLevelAddresses;
     private SystemType systemType;
     private BufferedWriter logFile;
     private ArrayList<String> enumLabelList;
@@ -20,7 +22,7 @@ public class DataDumper {
     public DataDumper(String name, String mode, SystemType systemType) {
         this.inputFile = new DataDumperInputFile(name, mode);
         this.dataTypeQueue = new ArrayList<QueuedDataType>();
-        this.parsedAddresses = new ArrayList<Long>();
+        this.parsedTopLevelAddresses = new HashSet<Long>();
         this.systemType = systemType;
         try {
             File outputFile = new File("output/parse_log.txt");
@@ -44,10 +46,6 @@ public class DataDumper {
         this.dataTypeQueue.add(new QueuedDataType(dataType, address, parentBaseLabel));
     }
 
-    public void addParsedAddress(long address) {
-        this.parsedAddresses.add(address);
-    }
-
     public DataDumperInputFile getInputFile() {
         return this.inputFile;
     }
@@ -59,10 +57,6 @@ public class DataDumper {
     public ArrayList<QueuedDataType> getDataTypeQueue() {
         return this.dataTypeQueue;
     }
-
-    /*public boolean addOutputtedLabel(String label) {
-
-    }*/
 
     public void allocateEnumLabel() {
         this.enumLabelList.add("");
@@ -96,10 +90,6 @@ public class DataDumper {
         return this.loopIndicesList.get(this.loopIndicesList.size() - 1);
     }
 
-    public ArrayList<Long> getParsedAddresses() {
-        return this.parsedAddresses;
-    }
-
     public BufferedWriter getLogFile() {
         return this.logFile;
     }
@@ -111,12 +101,22 @@ public class DataDumper {
         // ListIterator inserts the element in-between the current and next element, which is not wanted.
         for (int i = 0; i < dataTypeQueue.size(); i++) {
             this.currentQueuedDataType = dataTypeQueue.get(i);
+            if (this.parsedTopLevelAddresses.contains(this.currentQueuedDataType.address)) {
+                try {
+                    this.getLogFile().write(String.format("Did not parse %s at %x (already exists)\n", this.getClass().getName(), this.currentQueuedDataType.address));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                this.inputFile.seek(this.currentQueuedDataType.address);
+                this.currentQueuedDataType.dataType.setAddressFromInputFilePos();
+                continue;
+            }
+            
+            this.parsedTopLevelAddresses.add(this.currentQueuedDataType.address);
             this.inputFile.seek(this.currentQueuedDataType.address);
             this.currentQueuedDataType.dataType.parse();
-            // TODO figure out cases of data indirection overlap e.g. in scripts
-            // look ahead and don't parse on already parsed addresses?
-            // dataType.setAddressFromInputFilePos();
-            // dataType.parseData();
+            this.currentQueuedDataType.setEndAddress(this.inputFile.getFilePointer());
+            this.currentQueuedDataType.setParsedTrue();
         }
     }
     
@@ -127,24 +127,51 @@ public class DataDumper {
     public String generateOutput() {
         String output = "";
         try {
-            this.logFile.write("====================================");
+            this.logFile.write("====================================\ndataTypeQueue:\n");
         } catch (IOException e1) {
             throw new RuntimeException(e1);
         }
-        for (QueuedDataType dataTypeAddressPair : dataTypeQueue) {
+        
+        for (QueuedDataType queuedDataType : this.dataTypeQueue) {
             try {
-                this.logFile.write(String.format("Parse top level: %s at %x\n",  dataTypeAddressPair.dataType.getClass().getName(), dataTypeAddressPair.dataType.getLoadAddress()));
+                this.logFile.write(String.format("%s at %x\n",  queuedDataType.dataType.getClass().getName(), queuedDataType.dataType.getLoadAddress()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        try {
+            this.logFile.write("====================================\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<QueuedDataType> orderedDataTypeQueue = new ArrayList<QueuedDataType>(this.dataTypeQueue);
+        Collections.sort(orderedDataTypeQueue);
+        
+        long prevEndAddress = -1;
+
+        for (QueuedDataType queuedDataType : orderedDataTypeQueue) {
+            if (!queuedDataType.isParsed()) {
+                continue;
+            }
+            if (prevEndAddress != -1 && prevEndAddress != queuedDataType.address) {
+                output += "\n" + this.systemType.generateUnparsedMemoryRangeOutput(prevEndAddress, queuedDataType.address);
+            }
+            try {
+                this.logFile.write(String.format("Parse top level: %s at %x\n",  queuedDataType.dataType.getClass().getName(), queuedDataType.dataType.getLoadAddress()));
             } catch (IOException e2) {
                 throw new RuntimeException(e2);
             }
-            output += dataTypeAddressPair.dataType.toString();                
+            output += queuedDataType.dataType.toString();
+            prevEndAddress = queuedDataType.getEndAddress();
         }
         try {
             this.logFile.close();
         } catch (IOException e3) {
             throw new RuntimeException(e3);
         }
-        return output;
+        return output + "\n" + this.systemType.generateAddressCommentFromLoadAddress(this.inputFile.getFilePointer()) + "\n";
     }
 
     /**
@@ -196,7 +223,8 @@ public class DataDumper {
     public static long swapX(final long value, final int byteSize) {
         long newValue = 0;
         for (int i = 0, j = byteSize - 1; i < byteSize; i++, j--) {
-            newValue |= ((value >> (i * 8)) << (j * 8));
+            long tempValue = (((value >> (i * 8)) & 0xff) << (j * 8));
+            newValue |= tempValue;
         }
         return newValue;
     }

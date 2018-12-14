@@ -17,4 +17,12 @@ public abstract class SystemType {
     public abstract String getBinaryPrefix();
 
     public abstract Endianness getDefaultEndianness();
+
+    public abstract String generateUnparsedMemoryRangeOutput(long beginAddress, long endAddress);
+    
+    public abstract String getCommentPrefix();
+    
+    public String generateAddressCommentFromLoadAddress(long address) {
+        return this.getCommentPrefix() + " " + this.getHexPrefix() + Long.toHexString(this.fileOffsetToAddress(address));
+    }
 }

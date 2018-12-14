@@ -33,7 +33,7 @@ public class RedEvosMovesTest {
         String output = "";
         dumper.addDataTypeToQueue(dataType, 0x3B05CL, "EvosMovesPointerTable");
         dumper.parse();
-        output = dumper.generateOutput() + "\n";
+        output = dumper.generateOutput();
         File outputFile = new File("output/output.txt");
         outputFile.getParentFile().mkdirs();
         try (FileWriter writer = new FileWriter(outputFile)) {

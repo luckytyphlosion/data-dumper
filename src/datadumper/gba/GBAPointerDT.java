@@ -23,11 +23,6 @@ public class GBAPointerDT extends PointerDT {
     }
 
     @Override
-    public String getDatatypeAsStr() {
-        return String.format("unk_%08x", this.pointerAddress);
-    }
-
-    @Override
     public String getBlockFormatPrefix() {
         return ".word";
     }

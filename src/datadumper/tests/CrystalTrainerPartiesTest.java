@@ -25,7 +25,7 @@ public class CrystalTrainerPartiesTest {
         String output = "";
         dumper.addDataTypeToQueue(dataType, 0x39999, "TrainerGroups");
         dumper.parse();
-        output = dumper.generateOutput() + "\n";;
+        output = dumper.generateOutput();
         File outputFile = new File("output/crystal_trainers.txt");
         outputFile.getParentFile().mkdirs();
         try (FileWriter writer = new FileWriter(outputFile)) {

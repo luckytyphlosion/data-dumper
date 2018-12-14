@@ -40,8 +40,7 @@ public abstract class DataType {
     }
 
     public void setAddressFromInputFilePos() {
-        this.loadAddress = inputFile.getFilePointer();    		
-        this.dumper.addParsedAddress(this.loadAddress);
+        this.loadAddress = inputFile.getFilePointer();
     }
 
     public abstract void parseData();
@@ -101,11 +100,15 @@ public abstract class DataType {
         if (this.format != FormatType.NONE) {
             boolean labelAtAddress = false;
             ArrayList<QueuedDataType> dataTypeQueue = this.dumper.getDataTypeQueue();
+            //System.out.println(String.format("Label class: %s, size: %d", this.getClass().getName(), dataTypeQueue.size()));
             for (QueuedDataType queuedDataType : dataTypeQueue) {
                 DataType dataType = queuedDataType.dataType;
                 if (dataType.getLoadAddress() == this.loadAddress && !dataType.getLabel().equals("")) {
-                    labelAtAddress = true;
-                    output += "\n\n" + dataType.getLabel() + ":" /* + this.getClass().getName() + "::" + this.format*/;
+                    if (!labelAtAddress) {
+                        labelAtAddress = true;
+                        output += "\n";
+                    }
+                    output += "\n" + dataType.getLabel() + ": " + this.dumper.getSystemType().generateAddressCommentFromLoadAddress(this.loadAddress);
                 }
             }
 
@@ -159,7 +162,7 @@ public abstract class DataType {
         } else if (size == 3) {
             return (this.inputFile.read() << 16) | (this.inputFile.read() << 8) | this.inputFile.read();
         } else if (size == 4) {
-            return this.inputFile.readInt();
+            return (this.inputFile.readInt()) & 0x00000000ffffffffL;
         } else {
             throw new UnsupportedOperationException("No support currently for reading a size of " + size + "!");
         }

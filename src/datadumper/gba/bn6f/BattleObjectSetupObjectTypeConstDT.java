@@ -2,7 +2,6 @@ package datadumper.gba.bn6f;
 
 import datadumper.ConstantType;
 import datadumper.DataDumper;
-import datadumper.DataType;
 import datadumper.FormatType;
 import datadumper.common.ConstantDT;
 import datadumper.gba.GBAPrimitive;
@@ -40,8 +39,8 @@ public class BattleObjectSetupObjectTypeConstDT extends ConstantDT {
         super(dumper, format);
     }
 
-    public BattleObjectSetupObjectTypeConstDT(DataDumper dumper, FormatType format, DataType related) {
-        super(dumper, format, related);
+    public BattleObjectSetupObjectTypeConstDT(DataDumper dumper, FormatType format, String varId) {
+        super(dumper, format, varId);
     }
 
     @Override

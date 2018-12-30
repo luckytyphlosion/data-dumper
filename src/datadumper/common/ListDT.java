@@ -22,9 +22,11 @@ public abstract class ListDT extends GenericDataType {
         this.loopIndex = this.getInitialLoopIndex();
         this.dumper.allocateLoopIndex(this.loopIndex);
         for (; loopCondition(); this.dumper.setCurrentLoopIndex(++this.loopIndex)) {
+            this.dumper.addVariableScope();
             DataType dataType = this.related.createCopy();
             dataTypeList.add(dataType);
             dataType.parse();
+            this.dumper.removeVariableScope();
         }
     }
 

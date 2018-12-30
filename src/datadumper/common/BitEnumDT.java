@@ -2,6 +2,7 @@ package datadumper.common;
 
 import datadumper.DataDumper;
 import datadumper.FormatType;
+import datadumper.ValueType;
 import datadumper.common.PrimitiveDT;
 
 import java.util.StringJoiner;
@@ -14,6 +15,15 @@ public abstract class BitEnumDT extends PrimitiveDT {
     public BitEnumDT(DataDumper dumper, FormatType format) {
         super(dumper, format);
         this.bitfield = new TreeSet<Enum<?>>();
+    }
+
+    public BitEnumDT(DataDumper dumper, FormatType format, String varId) {
+        super(dumper, format, varId);
+    }
+
+    @Override
+    public ValueType getValueType() {
+        throw new UnsupportedOperationException("ValueType not supported for BitEnumDT yet, maybe later in refactor relating to size of PrimitiveDT.");
     }
 
     @Override

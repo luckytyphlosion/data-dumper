@@ -1,7 +1,6 @@
 package datadumper.gb.pokered;
 
 import datadumper.DataDumper;
-import datadumper.DataType;
 import datadumper.EnumType;
 import datadumper.FormatType;
 import datadumper.SystemType;
@@ -116,8 +115,8 @@ public class ItemEnumDT extends EnumDT {
         super(dumper, format);
     }
 
-    public ItemEnumDT(DataDumper dumper, FormatType format, DataType related) {
-        super(dumper, format, related);
+    public ItemEnumDT(DataDumper dumper, FormatType format, String varId) {
+        super(dumper, format, varId);
     }
 
     @Override

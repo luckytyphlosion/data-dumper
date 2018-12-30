@@ -3,22 +3,36 @@ package datadumper.common;
 import datadumper.DataDumper;
 import datadumper.DataType;
 import datadumper.FormatType;
+import datadumper.ValueType;
 
 public abstract class PrimitiveDT extends DataType {
 
     protected long value;
+    protected String varId;
 
     public PrimitiveDT(DataDumper dumper, FormatType format) {
         super(dumper, format);
+        this.varId = "";
     }
 
-    public PrimitiveDT(DataDumper dumper, FormatType format, DataType related) {
-        super(dumper, format, related);
+    public PrimitiveDT(DataDumper dumper, FormatType format, String varId) {
+        super(dumper, format);
+        this.varId = varId;
+    }
+
+    @Override
+    public DataType createCopy() {
+        return DataType.createCopyWithArgs(this,
+                new Class[] {DataDumper.class, FormatType.class, String.class},
+                new Object[] {this.dumper, this.format, this.varId});
     }
 
     @Override
     public void parseData() {
         this.value = this.readFromSize();
+        if (!this.varId.equals("")) {
+            this.dumper.addVariable(this.varId, this.getValueType());
+        }
     }
 
     public abstract String getDatatypeAsStr();
@@ -26,7 +40,9 @@ public abstract class PrimitiveDT extends DataType {
     public long getValue() {
         return this.value;
     }
-    
+
+    public abstract ValueType getValueType();
+
     public int getValueAsInt() {
         return Math.toIntExact(value);
     }

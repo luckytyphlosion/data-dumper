@@ -1,7 +1,6 @@
 package datadumper.gba.bn6f;
 
 import datadumper.DataDumper;
-import datadumper.DataType;
 import datadumper.EnumType;
 import datadumper.FormatType;
 import datadumper.common.EnumDT;
@@ -28,8 +27,8 @@ public class BattleModeEnumDT extends EnumDT {
         super(dumper, format);
     }
 
-    public BattleModeEnumDT(DataDumper dumper, FormatType format, DataType related) {
-        super(dumper, format, related);
+    public BattleModeEnumDT(DataDumper dumper, FormatType format, String varId) {
+        super(dumper, format, varId);
     }
 
     @Override

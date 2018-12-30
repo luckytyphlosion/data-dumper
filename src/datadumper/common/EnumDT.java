@@ -2,9 +2,10 @@ package datadumper.common;
 
 import datadumper.ConstantType;
 import datadumper.DataDumper;
-import datadumper.DataType;
 import datadumper.EnumType;
 import datadumper.FormatType;
+import datadumper.ValueType;
+
 import java.util.Arrays;
 
 public abstract class EnumDT extends PrimitiveDT {
@@ -17,8 +18,8 @@ public abstract class EnumDT extends PrimitiveDT {
         super(dumper, format);
     }
 
-    public EnumDT(DataDumper dumper, FormatType format, DataType related) {
-        super(dumper, format, related);
+    public EnumDT(DataDumper dumper, FormatType format, String varId) {
+        super(dumper, format, varId);
     }
 
     @Override
@@ -38,22 +39,25 @@ public abstract class EnumDT extends PrimitiveDT {
 
     @Override
     public String getDatatypeAsStr() {
-        //System.out.println(String.format("%x", this.getLoadAddress()));
-        if (this.value < this.getEnumNameArray().length) {
-            return this.getEnumNameArray()[Math.toIntExact(this.value)].toString();            
-        } else {
-            return this.discontinuousValue.toString();
-        }
+        return this.getValueType().toString();
     }
 
     public abstract EnumType[] getEnumNameArray();
 
     public abstract int getStartingValue();
 
+    public ValueType getValueType() {
+        if (this.value < this.getEnumNameArray().length) {
+            return this.getEnumNameArray()[Math.toIntExact(this.value)];
+        } else {
+            return this.discontinuousValue;
+        }
+    }
+
     public String getEnumLabelNameFromIndex(int index) {
         return this.getEnumNameArray()[index].getEnumLabelName();
     }
-    
+
     // override this
     public ConstantType[] getDiscontinuousValues() {
         return EnumDT.noDiscontinuousValues;

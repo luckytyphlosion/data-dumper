@@ -1,7 +1,6 @@
 package datadumper.gb.pokecrystal;
 
 import datadumper.DataDumper;
-import datadumper.DataType;
 import datadumper.EnumType;
 import datadumper.FormatType;
 import datadumper.SystemType;
@@ -22,8 +21,8 @@ public class TrainerTypeEnumDT extends EnumDT {
         super(dumper, format);
     }
 
-    public TrainerTypeEnumDT(DataDumper dumper, FormatType format, DataType related) {
-        super(dumper, format, related);
+    public TrainerTypeEnumDT(DataDumper dumper, FormatType format, String varId) {
+        super(dumper, format, varId);
     }
 
     @Override

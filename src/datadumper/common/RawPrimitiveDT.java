@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import datadumper.DataDumper;
 import datadumper.DataType;
 import datadumper.FormatType;
+import datadumper.ValueType;
 import datadumper.common.PrimitiveDT;
 
 public class RawPrimitiveDT extends PrimitiveDT {
@@ -13,7 +14,11 @@ public class RawPrimitiveDT extends PrimitiveDT {
     protected String formatStr;
 
     public RawPrimitiveDT(DataDumper dumper, FormatType format, String formatStr) {
-        super(dumper, format);
+        this(dumper, format, "", formatStr);
+    }
+
+    public RawPrimitiveDT(DataDumper dumper, FormatType format, String varId, String formatStr) {
+        super(dumper, format, varId);
         this.formatStr = formatStr;
         try {
             // only supports 9 bytes at most, maybe fix?
@@ -30,7 +35,12 @@ public class RawPrimitiveDT extends PrimitiveDT {
     }
 
     public DataType createCopy() {
-        return new RawPrimitiveDT(this.dumper, this.format, this.formatStr);
+        return new RawPrimitiveDT(this.dumper, this.format, this.varId, this.formatStr);
+    }
+
+    @Override
+    public ValueType getValueType() {
+        return new Value(this.getValue());
     }
 
     @Override

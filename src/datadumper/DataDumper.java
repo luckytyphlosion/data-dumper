@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class DataDumper {
@@ -18,6 +19,7 @@ public class DataDumper {
     private ArrayList<String> enumLabelList;
     private ArrayList<Integer> loopIndicesList;
     private QueuedDataType currentQueuedDataType;
+    private ArrayList<HashMap<String, ValueType>> variables;
 
     public DataDumper(String name, String mode, SystemType systemType) {
         this.inputFile = new DataDumperInputFile(name, mode);
@@ -34,6 +36,8 @@ public class DataDumper {
         this.enumLabelList = new ArrayList<String>();
         this.loopIndicesList = new ArrayList<Integer>();
         this.currentQueuedDataType = new QueuedDataType(DataType.nullDataType, -1, "Error");
+        this.variables = new ArrayList<HashMap<String, ValueType>>();
+        this.variables.add(new HashMap<String, ValueType>());
     }
 
     public void addDataTypeToQueue(DataType dataType, long address, String label) {
@@ -92,6 +96,51 @@ public class DataDumper {
 
     public BufferedWriter getLogFile() {
         return this.logFile;
+    }
+
+    public void addVariable(String varId, ValueType value) {
+        for (HashMap<String, ValueType> variableMap : this.variables) {
+            if (variableMap.containsKey(varId)) {
+                throw new RuntimeException(String.format("Tried creating variable \"%s\" with value \"%d\" when already exists with value \"%d\"!", varId, value, variableMap.get(varId)));
+            }
+        }
+
+        HashMap<String, ValueType> bottomScopeVariableMap = this.variables.get(this.variables.size() - 1);
+        bottomScopeVariableMap.put(varId, value);
+    }
+
+    public ValueType getVariable(String varId) {
+        return this.getMaybeRemoveVariable(varId, false);
+    }
+
+    private ValueType getMaybeRemoveVariable(String varId, boolean removeVariable) {
+        for (int i = this.variables.size() - 1; i >= 0; i--) {
+            HashMap<String, ValueType> currentScopeVariables = this.variables.get(i);
+            if (currentScopeVariables.containsKey(varId)) {
+                if (!removeVariable) {
+                    return currentScopeVariables.get(varId);
+                } else {
+                    return currentScopeVariables.remove(varId);
+                }
+            }
+        }
+        throw new RuntimeException("Variable \"" + varId + "\" does not exist!");
+    }
+
+    public ValueType popVariable(String varId) {
+        return this.getMaybeRemoveVariable(varId, true);
+    }
+
+    public void removeVariable(String varId) {
+        this.getMaybeRemoveVariable(varId, true);
+    }
+
+    public void addVariableScope() {
+        this.variables.add(new HashMap<String, ValueType>());
+    }
+
+    public void removeVariableScope() {
+        this.variables.remove(this.variables.size() - 1);
     }
 
     public void parse() {
@@ -227,6 +276,14 @@ public class DataDumper {
             newValue |= tempValue;
         }
         return newValue;
+    }
+
+    public static <T> T typeSafeCast(Object obj, Class<T> classObj) {
+        if (classObj != null && classObj.isInstance(obj)) {
+            return classObj.cast(obj);
+        } else {
+            throw new ClassCastException(obj.getClass().getName() + " cannot be cast to " + classObj.getName() + ".");
+        }
     }
 
     // unused but may as well keep

@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 import datadumper.ConstantType;
 import datadumper.DataDumper;
-import datadumper.DataType;
 import datadumper.FormatType;
+import datadumper.ValueType;
 
 public abstract class ConstantDT extends PrimitiveDT {
 
@@ -15,8 +15,8 @@ public abstract class ConstantDT extends PrimitiveDT {
         super(dumper, format);
     }
 
-    public ConstantDT(DataDumper dumper, FormatType format, DataType related) {
-        super(dumper, format, related);
+    public ConstantDT(DataDumper dumper, FormatType format, String varId) {
+        super(dumper, format, varId);
     }
 
     @Override
@@ -34,6 +34,11 @@ public abstract class ConstantDT extends PrimitiveDT {
     @Override
     public String getDatatypeAsStr() {
         return this.constantValue.toString();
+    }
+
+    @Override
+    public ValueType getValueType() {
+        return this.constantValue;
     }
 
     // override this

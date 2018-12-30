@@ -3,7 +3,6 @@ package datadumper.gb.pokered;
 import com.google.common.base.CaseFormat;
 
 import datadumper.DataDumper;
-import datadumper.DataType;
 import datadumper.EnumType;
 import datadumper.FormatType;
 import datadumper.SystemType;
@@ -235,8 +234,8 @@ public class PokemonEnumDT extends EnumDT {
         super(dumper, format);
     }
 
-    public PokemonEnumDT(DataDumper dumper, FormatType format, DataType related) {
-        super(dumper, format, related);
+    public PokemonEnumDT(DataDumper dumper, FormatType format, String varId) {
+        super(dumper, format, varId);
     }
 
     @Override

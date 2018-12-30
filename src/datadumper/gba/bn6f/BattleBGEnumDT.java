@@ -2,7 +2,6 @@ package datadumper.gba.bn6f;
 
 import datadumper.ConstantType;
 import datadumper.DataDumper;
-import datadumper.DataType;
 import datadumper.EnumType;
 import datadumper.FormatType;
 import datadumper.common.EnumDT;
@@ -59,8 +58,8 @@ public class BattleBGEnumDT extends EnumDT {
         super(dumper, format);
     }
 
-    public BattleBGEnumDT(DataDumper dumper, FormatType format, DataType related) {
-        super(dumper, format, related);
+    public BattleBGEnumDT(DataDumper dumper, FormatType format, String varId) {
+        super(dumper, format, varId);
     }
 
     @Override

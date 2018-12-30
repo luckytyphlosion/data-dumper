@@ -1,7 +1,6 @@
 package datadumper.gb.pokecrystal;
 
 import datadumper.DataDumper;
-import datadumper.DataType;
 import datadumper.EnumType;
 import datadumper.FormatType;
 import datadumper.common.EnumDT;
@@ -263,14 +262,13 @@ public class MoveEnumDT extends EnumDT {
         WHIRLPOOL,
         BEAT_UP,
     }
+
     public MoveEnumDT(DataDumper dumper, FormatType format) {
         super(dumper, format);
-        // TODO Auto-generated constructor stub
     }
 
-    public MoveEnumDT(DataDumper dumper, FormatType format, DataType related) {
-        super(dumper, format, related);
-        // TODO Auto-generated constructor stub
+    public MoveEnumDT(DataDumper dumper, FormatType format, String varId) {
+        super(dumper, format, varId);
     }
 
     @Override

@@ -7,7 +7,7 @@ import datadumper.common.HexByteDT;
 
 public class BattleObjectSetupDT extends DataType {
 
-    protected BattleObjectSetupObjectTypeConstDT objectType;
+    protected BattleObjSetupTypeConstDT objectType;
     protected HexByteDT objectCoords;
     protected BattleActorEnumOrMysteryDataInfoDT battleActorOrMysteryDataInfo;
 
@@ -17,7 +17,7 @@ public class BattleObjectSetupDT extends DataType {
 
     @Override
     public void parseData() {
-        this.objectType = new BattleObjectSetupObjectTypeConstDT(this.dumper, FormatType.BLOCK);
+        this.objectType = new BattleObjSetupTypeConstDT(this.dumper, FormatType.BLOCK);
         this.objectType.parse();
         this.objectCoords = new HexByteDT(this.dumper, FormatType.INLINE);
         this.objectCoords.parse();

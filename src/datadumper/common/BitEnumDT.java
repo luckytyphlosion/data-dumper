@@ -28,7 +28,7 @@ public abstract class BitEnumDT extends PrimitiveDT {
 
     @Override
     public void parseData() {
-        super.parseData();
+        this.parseValue();
         long value = this.getValue();
         Enum<?>[] bitfieldEnums = this.getEnumNameArray();
         for (int i = 0; value != 0; i++) {
@@ -37,6 +37,7 @@ public abstract class BitEnumDT extends PrimitiveDT {
             }
             value >>= 1;
         }
+        this.addVariable();
     }
 
     @Override

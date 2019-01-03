@@ -10,7 +10,7 @@ public class VariableSetUnionDT extends SetUnionDT {
     protected ValueSetDataType[] valueSetDataTypeArray;
     protected String varId;
 
-    public VariableSetUnionDT(DataDumper dumper, FormatType format, String varId, ValueSetDataType[] valueSetDataTypeArray) {
+    public VariableSetUnionDT(DataDumper dumper, FormatType format, String varId, ValueSetDataType ... valueSetDataTypeArray) {
         super(dumper, format);
         this.varId = varId;
         this.valueSetDataTypeArray = valueSetDataTypeArray;

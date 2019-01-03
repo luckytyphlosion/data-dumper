@@ -24,7 +24,7 @@ public abstract class EnumDT extends PrimitiveDT {
 
     @Override
     public void parseData() {
-        super.parseData();
+        this.parseValue();
         if (this.value >= this.getEnumNameArray().length) {
             this.discontinuousValue = Arrays.stream(this.getDiscontinuousValues())
                 .filter(c -> c.getValue() == this.value)
@@ -35,6 +35,7 @@ public abstract class EnumDT extends PrimitiveDT {
                     )
                 );
         }
+        this.addVariable();
     }
 
     @Override

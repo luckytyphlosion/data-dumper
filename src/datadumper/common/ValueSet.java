@@ -45,11 +45,11 @@ public class ValueSet {
 
     public ValueSet(String setFormat, ValueType ... setArgs) {
         this.postfixSetFormat = ValueSet.performShuntingYardOnSetFormat(setFormat, setArgs.length);
-        String debugPostfixStr = "";
+        /*String debugPostfixStr = "";
         for (String token : this.postfixSetFormat) {
             debugPostfixStr += token;
         }
-        System.out.println(debugPostfixStr);
+        System.out.println(debugPostfixStr);*/
         this.setArgs = setArgs;
     }
 
@@ -253,7 +253,7 @@ public class ValueSet {
         }
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         ValueSet valueSet = new ValueSet(
             "!([] | [] | [])",
             BattleObjSetupTypeConst.BATTLE_OBJECT_TYPE_MYSTERY_DATA,
@@ -261,5 +261,5 @@ public class ValueSet {
             BattleObjSetupTypeConst.BATTLE_OBJECT_TYPE_RED_SIDE);
         System.out.println(valueSet.contains(BattleObjSetupTypeConst.BATTLE_OBJECT_TYPE_MYSTERY_DATA));
         System.out.println(valueSet.contains(new Value(0x10)));
-    }
+    }*/
 }

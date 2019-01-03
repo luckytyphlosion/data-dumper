@@ -28,7 +28,7 @@ public abstract class SetUnionDT extends UnionDT {
                             valueTypeDiscriminator.getClass().getName(),
                             valueTypeDiscriminator.getValue()
                         )
-                    );      
+                    );
                 } else {
                     chosenDataType = valueSetDataType.dataType;
                 }

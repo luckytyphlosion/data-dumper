@@ -215,12 +215,16 @@ public class DataDumper {
             output += queuedDataType.dataType.toString();
             prevEndAddress = queuedDataType.getEndAddress();
         }
+        this.closeLogFile();
+        return output + "\n" + this.systemType.generateAddressCommentFromLoadAddress(this.inputFile.getFilePointer()) + "\n";
+    }
+
+    public void closeLogFile() {
         try {
             this.logFile.close();
-        } catch (IOException e3) {
-            throw new RuntimeException(e3);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return output + "\n" + this.systemType.generateAddressCommentFromLoadAddress(this.inputFile.getFilePointer()) + "\n";
     }
 
     /**

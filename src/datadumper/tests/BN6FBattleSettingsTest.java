@@ -32,7 +32,12 @@ public class BN6FBattleSettingsTest {
         dumper.addDataTypeToQueue(dataType1, 0xaee70, "BattleSettings0", "0_");
         dumper.addDataTypeToQueue(dataType2, 0xb0d88, "BattleSettings1", "1_");
         dumper.addDataTypeToQueue(dataType3, 0xb199b, "UnusedObjectSetupPointers");
-        dumper.parse();
+        try {
+            dumper.parse();
+        } catch (Exception e) {
+            dumper.closeLogFile();
+            throw new RuntimeException(e);
+        }
         output = dumper.generateOutput();
         File outputFile = new File("output/bn6f_battle_settings.txt");
         outputFile.getParentFile().mkdirs();

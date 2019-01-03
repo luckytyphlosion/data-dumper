@@ -29,7 +29,15 @@ public abstract class PrimitiveDT extends DataType {
 
     @Override
     public void parseData() {
+        this.parseValue();
+        this.addVariable();
+    }
+
+    public void parseValue() {
         this.value = this.readFromSize();
+    }
+
+    public void addVariable() {
         if (!this.varId.equals("")) {
             this.dumper.addVariable(this.varId, this.getValueType());
         }

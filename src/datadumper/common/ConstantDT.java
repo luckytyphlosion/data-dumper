@@ -21,7 +21,7 @@ public abstract class ConstantDT extends PrimitiveDT {
 
     @Override
     public void parseData() {
-        super.parseData();
+        this.parseValue();
         this.constantValue = Arrays.stream(this.getConstantEnumArray())
             .filter(c -> c.getValue() == this.value)
             .findFirst()
@@ -30,6 +30,7 @@ public abstract class ConstantDT extends PrimitiveDT {
                     this.getClass().getName(), this.value, this.getVirtualAddress())
                 )
             );
+        this.addVariable();
     }
     @Override
     public String getDatatypeAsStr() {
